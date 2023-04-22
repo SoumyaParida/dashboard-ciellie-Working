@@ -44,7 +44,7 @@ const Sidebar = () => {
             <span>Dashboard</span>
           </li>
           <p className="title">Survey Manager</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <Link to="/surveys" style={{ textDecoration: "none" }}>
             <li>
               <PsychologyOutlinedIcon className="icon" />
               <span>Surveys</span>
@@ -58,13 +58,13 @@ const Sidebar = () => {
             <span>Profile</span>
           </li>
           </Link>
-          <Link to="/logout" style={{ textDecoration: "none" }}>
+          
             
           <li>
             <ExitToAppIcon className="icon"/>
             <span onClick={handlelogout}>Logout</span>
           </li>
-          </Link>
+          
         </ul>
       </div>
       <div className="bottom">

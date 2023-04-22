@@ -1,6 +1,7 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
+import SurveyList from "./pages/list/SurveyList";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Profile from "./pages/profile/Profile";
@@ -39,6 +40,12 @@ function App() {
                 element={<RequireAuth><New inputs={userInputs} title="Add New User" /></RequireAuth>}
               />
             </Route>
+            
+            <Route path="surveys">
+              <Route index element={<RequireAuth><SurveyList /></RequireAuth>} />
+            </Route>
+            
+            
             <Route path="products">
               <Route index element={<RequireAuth><List /></RequireAuth>} />
               <Route path=":productId" element={<RequireAuth><Single /></RequireAuth>} />

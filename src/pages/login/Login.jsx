@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import primarycard from '../../assets/img/card-primary.png';
 
-//import Register from "../register/Register";
+import Register from "../register/Register";
 import { collection, getDocs } from "firebase/firestore"; 
 
 const Login = () => {
@@ -27,8 +27,8 @@ const Login = () => {
   const {dispatch} = useContext(AuthContext);
 
   const navigateRegister = () =>{  
-    //navigate("/register");
-    navigate("/");
+    navigate("/register");
+    //navigate("/");
   }
 
   const handleLogin = async (e) => {
@@ -64,7 +64,54 @@ const Login = () => {
 
   return (
     <div className="login-page">
-     
+     <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <div class="navbar-toggle d-inline">
+          <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </button>
+        </div>
+        <a class="navbar-brand" href="javascript:void(0)">Pricing Page</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="../dashboard.html" class="nav-link text-primary">
+              <i class="tim-icons icon-minimal-left"></i> Back to Dashboard
+            </a>
+          </li>
+          <li class="nav-item ">
+          <a href='javascript:void(0)' onClick={ navigateRegister } class="nav-link">
+              <i class="tim-icons icon-laptop"></i> Register
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="login.html" class="nav-link">
+              <i class="tim-icons icon-single-02"></i> Login
+            </a>
+          </li>
+          <li class="nav-item  active ">
+            <a href="pricing.html" class="nav-link">
+              <i class="tim-icons icon-coins"></i> Pricing
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="lock.html" class="nav-link">
+              <i class="tim-icons icon-lock-circle"></i> Lock
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
       <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -90,19 +137,19 @@ const Login = () => {
                     </div>
                     <div class="card-body">
                         <div class="input-group">
-                          <div class="input-group-prepend">
+                         
                             <div class="input-group-text">
                               <i class="tim-icons icon-email-85"></i>
                             </div>
-                          </div>
+                          
                           <input type="email" class="form-control" placeholder="email" onChange={e=>setEmail(e.target.value)}/>
                         </div>
                         <div class="input-group">
-                          <div class="input-group-prepend">
+                          
                             <div class="input-group-text">
                               <i class="tim-icons icon-lock-circle"></i>
                             </div>
-                          </div>
+                          
                           <input type="password" class="form-control" placeholder="password" onChange={e=>setPassword(e.target.value)} />
                         </div>
                         <div class="card-footer">

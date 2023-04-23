@@ -1,10 +1,12 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import List from "./pages/list/List";
 import SurveyList from "./pages/list/SurveyList";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Profile from "./pages/profile/Profile";
+import Pricing from "./pages/pricing/Pricing";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -29,6 +31,7 @@ function App() {
         <Routes>
           <Route>
             <Route path = "login" element = {<Login />} />
+            <Route path = "register" element = {<Register />} />
             <Route index element= {<RequireAuth><Home /></RequireAuth>} />
             <Route path="/profile" element = {<Profile />} />
             
@@ -55,6 +58,7 @@ function App() {
               />
             </Route>
           </Route>
+          <Route path="pricing" element = {<Pricing />} />
         </Routes>
       </BrowserRouter>
     </div>

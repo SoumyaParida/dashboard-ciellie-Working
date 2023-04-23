@@ -13,11 +13,11 @@ const Widget = ({ type }) => {
   const diff = 20;
 
   switch (type) {
-    case "user":
+    case "surveys":
       data = {
-        title: "USERS",
+        title: "Surveys This Month",
         isMoney: false,
-        link: "See all users",
+        link: "Create a new Survey",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -29,11 +29,27 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "model":
       data = {
-        title: "ORDERS",
+        title: "3D Model Generator",
         isMoney: false,
-        link: "View all orders",
+        link: "View our Timeline",
+        icon: (
+          <PersonOutlinedIcon
+            className="icon"
+            style={{
+              color: "crimson",
+              backgroundColor: "rgba(255, 0, 0, 0.2)",
+            }}
+          />
+        ),
+      };
+      break;
+    case "projects":
+      data = {
+        title: "Projects Complete",
+        isMoney: false,
+        link: "Projects",
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -45,11 +61,11 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
+    case "storage":
       data = {
-        title: "EARNINGS",
+        title: "Storage Used",
         isMoney: true,
-        link: "View net earnings",
+        link: "Get more Storage",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -58,25 +74,11 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "balance":
-      data = {
-        title: "BALANCE",
-        isMoney: true,
-        link: "See details",
-        icon: (
-          <AccountBalanceWalletOutlinedIcon
-            className="icon"
-            style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
-            }}
-          />
-        ),
-      };
-      break;
     default:
       break;
   }
+
+  
 
   return (
     <div className="widget">

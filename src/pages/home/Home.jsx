@@ -2,6 +2,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import "./home.scss";
 import Widget from "../../components/widget/Widget";
+import StorageWidget from "../../components/widget/StorageWidget";
+import ProjectWidget from "../../components/widget/ProjectWidget";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
@@ -18,10 +20,10 @@ const Home = () => {
           <Chart title="Total Sites Surveyed" aspect={3 / 1} />
         </div>
         <div className="widgets">
-          <Widget type="user" />
-          <Widget type="order" />
-          <Widget type="earning" />
-          <Widget type="balance" />
+          <Widget type="surveys" />
+          <Widget type="model" />
+          <ProjectWidget />
+          <StorageWidget/>
         </div>
         
       </div>

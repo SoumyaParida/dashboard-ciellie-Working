@@ -31,6 +31,14 @@ const Login = () => {
     //navigate("/");
   }
 
+  const navigatePricing = () => {
+    navigate("/pricing");
+  }
+
+  const navigateLogin = () => {
+    navigate("/login");
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log(auth);
@@ -64,7 +72,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-     <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent fixed-top">
+     <nav class="navbar navbar-expand-lg nav-transparent ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
         <div class="navbar-toggle d-inline">
@@ -74,7 +82,7 @@ const Login = () => {
             <span class="navbar-toggler-bar bar3"></span>
           </button>
         </div>
-        <a class="navbar-brand" href="javascript:void(0)">Pricing Page</a>
+        <a class="navbar-brand textdecor" href="javascript:void(0)">Login to Ciellie Portal</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -84,28 +92,25 @@ const Login = () => {
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="../dashboard.html" class="nav-link text-primary">
+            <a href="../dashboard.html" class="nav-link text-primary textdecor">
               <i class="tim-icons icon-minimal-left"></i> Back to Dashboard
             </a>
           </li>
           <li class="nav-item ">
-          <a href='javascript:void(0)' onClick={ navigateRegister } class="nav-link">
+          <a href='javascript:void(0)' onClick={ navigateRegister } class="nav-link textdecor">
               <i class="tim-icons icon-laptop"></i> Register
             </a>
           </li>
+
+          
           <li class="nav-item ">
-            <a href="login.html" class="nav-link">
+          <a href='javascript:void(0)' onClick={ navigateLogin } class="nav-link textdecor">
               <i class="tim-icons icon-single-02"></i> Login
             </a>
           </li>
           <li class="nav-item  active ">
-            <a href="pricing.html" class="nav-link">
+          <a href='javascript:void(0)' onClick={ navigatePricing } class="nav-link textdecor">
               <i class="tim-icons icon-coins"></i> Pricing
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a href="lock.html" class="nav-link">
-              <i class="tim-icons icon-lock-circle"></i> Lock
             </a>
           </li>
         </ul>
@@ -159,12 +164,12 @@ const Login = () => {
 
                         <div class="pull-left">
                           <h6>
-                            <a href="..\..\examples\pages\register.html" class="link footer-link">Create Account</a>
+                          <a href='javascript:void(0)' onClick={ navigateRegister } class="link footer-link">Create Account</a>
                           </h6>
                         </div>
                         <div class="pull-right">
                           <h6>
-                            <a href="../../examples/pages/pricing.html" class="link footer-link">Need Help?</a>
+                            <a href='javascript:void(0)' onClick={ navigatePricing } class="link footer-link">Need Help?</a>
                           </h6>
                         </div>
 
@@ -175,8 +180,24 @@ const Login = () => {
             </div>
           </div>
         </div>
-    </div>
 
+        <footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            © 2023 All rights Reserved. ciellie.com
+          </div>
+        </div>
+      </footer>
+        
+    </div>
+    
     
   </div>
   )

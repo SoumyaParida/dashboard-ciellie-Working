@@ -1,6 +1,48 @@
+.footer {
+  padding: 24px 30px;
+  background-color: #e14eca;
+}
+
+.fixed-top {
+  top: 0;
+  right: 0;
+  left: 0;
+   }
+
+  .textdecor {
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.nav {
+  display: inline-block;
+  float: left;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #e14eca;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.nav-transparent{
+  background-color: #1e1e2f;
+}
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
 .navbar {
     height: 50px;
-  border-bottom: 0.5px solid rgb(231, 228, 228);
+    border-bottom: 0.5px solid rgb(30, 30, 47);
   display: flex;
   align-items: center;
   font-size: 14px;

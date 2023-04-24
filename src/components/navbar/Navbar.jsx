@@ -46,7 +46,7 @@ const Navbar = () => {
   },[])
 
   return (
-    <div className="navbar">
+    <div className="navbar1">
       <div className="wrapper">
         <div>
          

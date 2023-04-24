@@ -12,8 +12,10 @@ const Home = () => {
   return (
     <div className="home">
       <Sidebar />
+      
       <div className="homeContainer">
-        <Navbar />
+      
+      <Navbar />
         
         <div className="charts">
           

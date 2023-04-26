@@ -9,6 +9,7 @@ import New from "./pages/new/New";
 import NewSurvey from "./pages/new/NewSurvey";
 import Profile from "./pages/profile/Profile";
 import Pricing from "./pages/pricing/Pricing";
+import Widget from "./pages/widget/Widget";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs, surveyInputs } from "./formSource";
 import "./style/dark.scss";
@@ -66,6 +67,7 @@ function App() {
             </Route>
           </Route>
           <Route path="pricing" element = {<Pricing />} />
+          <Route path="widget" element = {<Widget />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -4,6 +4,8 @@ import "./home.scss";
 import Widget from "../../components/widget/Widget";
 import StorageWidget from "../../components/widget/StorageWidget";
 import ProjectWidget from "../../components/widget/ProjectWidget";
+import ModelWidget from "../../components/widget/ModelWidget";
+import SurveyThisMonth from "../../components/widget/SurveyThisMonth";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
@@ -22,8 +24,8 @@ const Home = () => {
           <Chart title="Total Sites Surveyed" aspect={3 / 1} />
         </div>
         <div className="widgets">
-          <Widget type="surveys" />
-          <Widget type="model" />
+          <SurveyThisMonth />
+          <ModelWidget />
           <ProjectWidget />
           <StorageWidget/>
         </div>

@@ -16,6 +16,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const [data, setData] = useState([]);
+  const [name, setName] = useState([]);
   const { dispatch } = useContext(DarkModeContext);
   const { currentUser, userdispatch } = useContext(AuthContext);
 
@@ -35,6 +36,7 @@ const Navbar = () => {
         console.log("Document data:", docSnap.data());
         //console.log("Document data:", docSnap.data()['image']);
         setData(docSnap.data().image);
+        setName(docSnap.data().name)
         //setData
       } else {
         // docSnap.data() will be undefined in this case
@@ -49,7 +51,7 @@ const Navbar = () => {
     <div className="navbar1">
       <div className="wrapper">
         <div>
-         
+        <span className="logo">Welcome back {name} !!</span>
         </div>
         <div className="items">
           

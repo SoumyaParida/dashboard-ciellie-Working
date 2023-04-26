@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import Pricing from "../../pages/pricing/Pricing";
 import { Link } from "react-router-dom";
+import CloudCircleIcon from '@mui/icons-material/CloudCircle';
 
 const StorageWidget = () => {
   let data;
@@ -19,7 +20,7 @@ const StorageWidget = () => {
         isMoney: true,
         link: "Get more Storage",
         icon: (
-          <MonetizationOnOutlinedIcon
+          <CloudCircleIcon
             className="icon"
             style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
           />

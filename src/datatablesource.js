@@ -30,7 +30,7 @@ export const surveyColumns = [
   {
     field: "status",
     headerName: "Status",
-    width: 160,
+    width: 250,
     renderCell: (params) => {
       return (
         
@@ -42,45 +42,5 @@ export const surveyColumns = [
       }
     },
   { field: "id", headerName: "ID", width: 350 },
-  {
-    field: "address",
-    headerName: "Address",
-    width: 200,
-  },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 150,
-  },
-  {
-    field: "phone",
-    headerName: "Phone",
-    width: 150,
-  },
-  {
-    field: "propertyType",
-    headerName: "PropertyType",
-    width: 120,
-  },
-  {
-    field: "email",
-    headerName: "Email",
-    width: 230,
-  },
-  {
-    field: "date",
-    headerName: "Date",
-    width: 200,
-  },
-  {
-    field: "time",
-    headerName: "Time",
-    width: 100,
-  },
   
-  {
-    field: "message",
-    headerName: "Message",
-    width: 300,
-  }
 ];

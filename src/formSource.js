@@ -1,44 +1,66 @@
 export const userInputs = [
     {
-      id: 1,
+      id: "name",
       label: "Username",
       type: "text",
-      placeholder: "john_doe",
+      placeholder: "Username",
     },
     {
-      id: 2,
-      label: "Name and surname",
-      type: "text",
-      placeholder: "John Doe",
-    },
-    {
-      id: 3,
-      label: "Email",
-      type: "mail",
-      placeholder: "john_doe@gmail.com",
-    },
-    {
-      id: 4,
+      id: "phone",
       label: "Phone",
       type: "text",
-      placeholder: "+1 234 567 89",
+      placeholder: "Phone",
+    },
+  ];
+
+  export const surveyInputs = [
+    {
+      id: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Name",
     },
     {
-      id: 5,
-      label: "Password",
-      type: "password",
+      id: "email",
+      label: "Email",
+      type: "mail",
+      placeholder: "Email",
     },
     {
-      id: 6,
+      id: "phone",
+      label: "Phone",
+      type: "text",
+      placeholder: "Phone",
+    },
+    {
+      id: "address",
       label: "Address",
       type: "text",
-      placeholder: "Elton St. 216 NewYork",
+      placeholder: "Address",
     },
     {
-      id: 7,
-      label: "Country",
+      id: "propertyType",
+      label: "PropertyType",
       type: "text",
-      placeholder: "USA",
+      placeholder: "PropertyType",
+    },
+    {
+      id: "date",
+      label: "Date",
+      type: "date",
+      placeholder: "Date",
+    },
+    {
+      id: "time",
+      label: "Time",
+      type: "time",
+      placeholder: "Time",
+    },
+    {
+      id: "message",
+      label: "Message",
+      type: "text",
+      placeholder: "Message",
     },
   ];
   

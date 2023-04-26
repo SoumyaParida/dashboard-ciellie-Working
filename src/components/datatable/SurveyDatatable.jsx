@@ -9,17 +9,18 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
-
-
+import { useNavigate } from "react-router-dom";
 
 const SurveyDatatable = () => {
-  const [data, setData] = useState([]);
+  const [data, setSurveyData] = useState([]);
   const { currentUser, dispatch } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // access the db collection
 
-    const fetchData = async() =>{
+    const fetchSurveyData = async() =>{
       let list = [];
       console.log("currentUser.uid" + currentUser.uid);
       const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
@@ -34,13 +35,14 @@ const SurveyDatatable = () => {
         // doc.data() is never undefined for query doc snapshots
       //  console.log(doc.id, " => ", doc.data());
       //});
-      setData(list);
+      setSurveyData(list);
     }
-    fetchData()
+    fetchSurveyData()
   },[])
-  console.log(data);
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+ 
+
+  const handleView = (id) => {
+    navigate('/surveys/test', { state: { id: id} });
   };
 
   const actionSurveyColumn = [
@@ -50,17 +52,8 @@ const SurveyDatatable = () => {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-          </div>
+          <button onClick={() => handleView(params.row.id)}>View</button>
+          
         );
       },
     },
@@ -70,7 +63,7 @@ const SurveyDatatable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Surveys
-        <Link to="/users/new" className="link">
+        <Link to="/surveys/newsurvey" className="link">
           Schedule a Survey
         </Link>
       </div>

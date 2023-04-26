@@ -4,11 +4,13 @@ import Register from "./pages/register/Register";
 import List from "./pages/list/List";
 import SurveyList from "./pages/list/SurveyList";
 import Single from "./pages/single/Single";
+import SurveySingle from "./pages/single/SurveySingle";
 import New from "./pages/new/New";
+import NewSurvey from "./pages/new/NewSurvey";
 import Profile from "./pages/profile/Profile";
 import Pricing from "./pages/pricing/Pricing";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { productInputs, userInputs, surveyInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -40,12 +42,17 @@ function App() {
               <Route path=":userId" element={<RequireAuth><Single /></RequireAuth>} />
               <Route
                 path="new"
-                element={<RequireAuth><New inputs={userInputs} title="Add New User" /></RequireAuth>}
+                element={<RequireAuth><New inputs={userInputs} title="Edit Profile" /></RequireAuth>}
               />
             </Route>
             
             <Route path="surveys">
               <Route index element={<RequireAuth><SurveyList /></RequireAuth>} />
+              <Route path=":surveyId" element={<RequireAuth><SurveySingle /></RequireAuth>} />
+              <Route
+                path="newsurvey"
+                element={<RequireAuth><NewSurvey inputs={surveyInputs} title="Schedule a new Survey" /></RequireAuth>}
+              />
             </Route>
             
             

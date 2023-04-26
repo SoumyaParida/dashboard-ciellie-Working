@@ -1,4 +1,4 @@
-import "./completedsurveyDatatable.scss";
+import "./completedSurveyDatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { surveyColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -16,13 +17,16 @@ const CompletedSurveyDatatable = () => {
   const [data, setData] = useState([]);
   const { currentUser, dispatch } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     // access the db collection
 
     const fetchData = async() =>{
       let list = [];
       console.log("currentUser.uid" + currentUser.uid);
-      const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
+      const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "completed"));
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
         list.push({ id: doc.id, ...doc.data()});
@@ -39,6 +43,9 @@ const CompletedSurveyDatatable = () => {
     fetchData()
   },[])
   console.log(data);
+  const handleView = (id) => {
+    navigate('/surveys/test', { state: { id: id} });
+  };
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
@@ -50,29 +57,17 @@ const CompletedSurveyDatatable = () => {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-          </div>
+          <button onClick={() => handleView(params.row.id)}>View</button>
+          
         );
       },
     },
   ];
 
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        Surveys
-        <Link to="/users/new" className="link">
-          Schedule a Survey
-        </Link>
+    <div className="completedSurveyDatatable">
+      <div className="completedSurveyDatatableTitle">
+        
       </div>
       <DataGrid
         className="datagrid"

@@ -48,13 +48,17 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
           //Signed in
-          const user = userCredential.user;
+          //const user = userCredential.user;
 
-          /*const querySnapshot = await getDocs(collection(db, "users"));
+          const querySnapshot = await getDocs(collection(db, "profiles"));
           querySnapshot.forEach((doc) => {
-            console.log('${doc.id} => ${doc.data()}');
-          });*/
-          
+            console.log("doc data", doc.data());
+            if (doc.data().email == email){
+              console.log("doc.data().email", doc.data().email);
+              userCredential.user.uid = doc.data().id;
+            }
+          });
+          const user = userCredential.user;
           dispatch({type:"LOGIN", payload:user});
           console.log(user);
           navigate('/');

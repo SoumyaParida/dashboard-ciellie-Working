@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import primarycard from '../../assets/img/card-primary.png';
 import { auth, db }  from "../../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 const Register = () => {
 
@@ -54,9 +54,19 @@ const Register = () => {
               username: username,
               email: email
           });
+
+          const res = await setDoc(doc(db, "profiles", docRef.id),{
+            name: username,
+            email: email,
+            phone: "",
+            id: docRef.id,
+            image: ""
+          })
+
           
+            userCredential.user.uid = docRef.id;
             const user = userCredential.user;
-            dispatch({type:"LOGIN", payload:user});
+            dispatch({type:"REGISTER", payload:user});
             console.log(user);
             navigate('/');
             console.log("Document written with ID: ", docRef.id);

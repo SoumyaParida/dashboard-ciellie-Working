@@ -41,6 +41,6 @@ export const surveyColumns = [
         );
       }
     },
-  { field: "id", headerName: "ID", width: 350 },
+  { field: "address", headerName: "Address", width: 350 },
   
 ];

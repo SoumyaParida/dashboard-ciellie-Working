@@ -61,14 +61,13 @@ const Chart = ({ aspect, title }) => {
     const fetchData = async() =>{
       let list = [];
       console.log("currentUser.uid" + currentUser.uid);
-      const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "completed"));
+      const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "scheduled"));
       const querySnapshot = await getDocs(q);
       
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
         if ((doc.data().date > "2023-01-01") && (doc.data().date < "2023-01-31")){
           counterJan = counterJan + 1;
-            list.push({ id: doc.id, ...doc.data()});
         } else if ((doc.data().date > "2023-02-01") && (doc.data().date < "2023-02-28")){
           counterFeb = counterFeb + 1 ;
         } else if ((doc.data().date > "2023-03-01") && (doc.data().date < "2023-03-31")){

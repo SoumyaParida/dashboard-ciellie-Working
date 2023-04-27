@@ -35,7 +35,7 @@ const SurveyThisMonth = () => {
     const fetchData = async() =>{
       let list = [];
       console.log("currentUser.uid" + currentUser.uid);
-      const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "completed"));
+      const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "scheduled"));
       const querySnapshot = await getDocs(q);
       
       querySnapshot.forEach((doc) => {

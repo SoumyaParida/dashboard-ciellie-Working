@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const StorageWidget = () => {
-  const [storagevalue, setStorage] = useState([]);
+  const [appliances, setAppliances] = useState([]);
+  const [attic, setAttic] = useState([]);
+  const [electrical, setElectrical] = useState([]);
+  const [extraDetails, setExtraDetails] = useState([]);
+  const [roof, setRoof] = useState([]);
+
   const { currentUser, dispatch } = useContext(AuthContext);
   let data;
 
@@ -29,6 +34,11 @@ const StorageWidget = () => {
       let list = [];
       let storageFolders = [];
       var storageCount = 0;
+      var storageAppliancesCount = 0;
+      var storageAtticCount = 0;
+      var storageElectricalCount = 0;
+      var storageExtraDetailsCount = 0;
+      var storageRoofCount = 0;
 
       console.log("currentUser.uid" + currentUser.uid);
       const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
@@ -40,36 +50,148 @@ const StorageWidget = () => {
         storageFolders.push("Electrical");
         storageFolders.push("ExtraDetails");
         storageFolders.push("Roof");
-        
-        const listRef = ref(storage, "Appliances/"+  currentUser.uid + "/" + doc.data().id);
 
-        listAll(listRef)
-          .then((res) => {
-            res.prefixes.forEach((folderRef) => {
-              // All the prefixes under listRef.
-              // You may call listAll() recursively on them.
-              listAll(folderRef);
-            });
-            res.items.forEach((itemRef) => {
-              getMetadata(itemRef)
-              .then((metadata) => {
-                // Metadata now contains the metadata for 'images/forest.jpg'
-                console.log("metadat details:", metadata.size);
-                storageCount = storageCount + metadata.size;
-                console.log("storageCount", storageCount);
-                setStorage(storageCount);
-              })
-              .catch((error) => {
-                // Uh-oh, an error occurred!
-                console.log(error);
+        //for (let i = 0; i < storageFolders.length; i++) {
+          //const listRef = ref(storage, storageFolders[i] + "/" +  currentUser.uid + "/" + doc.data().id);
+          const listRef = ref(storage, "Appliances/" +  currentUser.uid + "/" + doc.data().id);
+          listAll(listRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                // All the prefixes under listRef.
+                // You may call listAll() recursively on them.
+                listAll(folderRef);
               });
+              res.items.forEach((itemRef) => {
+                getMetadata(itemRef)
+                .then((metadata) => {
+                  // Metadata now contains the metadata for 'images/forest.jpg'
+                  console.log("metadat details:", metadata.size);
+                  storageAppliancesCount = storageAppliancesCount + metadata.size;
+                  console.log("storageAppliancesCount", storageAppliancesCount);
+                  setAppliances(storageAppliancesCount);
+                })
+                .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log(error);
+                });
+              });
+            }).catch((err) => {
+              // Uh-oh, an error occurred!
+              console.log(err);
             });
-          }).catch((err) => {
-            // Uh-oh, an error occurred!
-            console.log(err);
-          });
-          
+
+            const listAtticRef = ref(storage, "Attic/" +  currentUser.uid + "/" + doc.data().id);
+            listAll(listAtticRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                // All the prefixes under listRef.
+                // You may call listAll() recursively on them.
+                listAll(folderRef);
+              });
+              res.items.forEach((itemRef) => {
+                getMetadata(itemRef)
+                .then((metadata) => {
+                  // Metadata now contains the metadata for 'images/forest.jpg'
+                  console.log("metadat details:", metadata.size);
+                  storageAtticCount = storageAtticCount + metadata.size;
+                  console.log("storageAtticCount", storageAtticCount);
+                  setAttic(storageAtticCount);
+                })
+                .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log(error);
+                });
+              });
+            }).catch((err) => {
+              // Uh-oh, an error occurred!
+              console.log(err);
+            });
+
+            const listElectricalRef = ref(storage, "Electrical/" +  currentUser.uid + "/" + doc.data().id);
+            listAll(listElectricalRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                // All the prefixes under listRef.
+                // You may call listAll() recursively on them.
+                listAll(folderRef);
+              });
+              res.items.forEach((itemRef) => {
+                getMetadata(itemRef)
+                .then((metadata) => {
+                  // Metadata now contains the metadata for 'images/forest.jpg'
+                  console.log("metadat details:", metadata.size);
+                  storageElectricalCount = storageElectricalCount + metadata.size;
+                  console.log("storageElectricalCount", storageElectricalCount);
+                  setElectrical(storageElectricalCount);
+                })
+                .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log(error);
+                });
+              });
+            }).catch((err) => {
+              // Uh-oh, an error occurred!
+              console.log(err);
+            });
+
+            const listExtraDetailsRef = ref(storage, "ExtraDetails/" +  currentUser.uid + "/" + doc.data().id);
+            listAll(listExtraDetailsRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                // All the prefixes under listRef.
+                // You may call listAll() recursively on them.
+                listAll(folderRef);
+              });
+              res.items.forEach((itemRef) => {
+                getMetadata(itemRef)
+                .then((metadata) => {
+                  // Metadata now contains the metadata for 'images/forest.jpg'
+                  console.log("metadat details:", metadata.size);
+                  storageExtraDetailsCount = storageExtraDetailsCount + metadata.size;
+                  console.log("storageExtraDetailsCount", storageExtraDetailsCount);
+                  setExtraDetails(storageExtraDetailsCount);
+                })
+                .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log(error);
+                });
+              });
+            }).catch((err) => {
+              // Uh-oh, an error occurred!
+              console.log(err);
+            });
+
+            const listRoofRef = ref(storage, "Roof/" +  currentUser.uid + "/" + doc.data().id);
+            listAll(listRoofRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                // All the prefixes under listRef.
+                // You may call listAll() recursively on them.
+                listAll(folderRef);
+              });
+              res.items.forEach((itemRef) => {
+                getMetadata(itemRef)
+                .then((metadata) => {
+                  // Metadata now contains the metadata for 'images/forest.jpg'
+                  console.log("metadat details:", metadata.size);
+                  storageRoofCount = storageRoofCount + metadata.size;
+                  console.log("storageRoofCount", storageRoofCount);
+                  setRoof(storageRoofCount);
+                })
+                .catch((error) => {
+                  // Uh-oh, an error occurred!
+                  console.log(error);
+                });
+              });
+            }).catch((err) => {
+              // Uh-oh, an error occurred!
+              console.log(err);
+            });
+            //storageCount = storageAppliancesCount + storageAtticCount + storageElectricalCount + storageExtraDetailsCount + storageRoofCount;
+            //setStorage(storageCount);
+            //      }  
       });
+      
     }
     fetchSurveyData()
   },[])
@@ -78,7 +200,7 @@ const StorageWidget = () => {
   console.log()
 
   
-   var storageValueInMB =  Math.round(storagevalue / 1000000).toFixed(2); 
+   var storageValueInMB =  Math.round((appliances +  attic + electrical + extraDetails + roof) / 1000000).toFixed(2); 
   //temporary
   const _title = storageValueInMB.toString() + " MB";
   //const _description = "/200 GB";

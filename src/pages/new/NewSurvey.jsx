@@ -11,6 +11,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 const NewSurvey = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -23,7 +24,7 @@ const NewSurvey = ({ inputs, title }) => {
     const id = e.target.id;
     const value = e.target.value;
 
-    setData({ ...data, [id]: value, "status": "scheduled"});
+    setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
     //console.log("...data", ...data);
   }
 

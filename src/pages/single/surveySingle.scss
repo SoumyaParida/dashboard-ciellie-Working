@@ -125,6 +125,21 @@
         box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
         padding: 20px;
         margin: 10px 20px;
+        .topContainer{
+          display: flex;
+          flex-direction: row;
+        }
+        imageList: {
+          width: 500;
+          height: 450;
+        }
+        root: {
+          display: 'flex';
+          flexWrap: 'wrap';
+          justifyContent: 'space-around';
+          overflow: 'hidden'
+        }
+        
       }
   
       .title {

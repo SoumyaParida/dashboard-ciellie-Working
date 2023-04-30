@@ -1,19 +1,40 @@
+import React from 'react';
 import "./surveySingle.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 
+import { makeStyles } from '@material-ui/core/styles';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import CompletedSurveyDatatable from "../../components/datatable/CompletedSurveyDatatable";
 import { useLocation } from 'react-router-dom';
+import { ref, uploadBytesResumable, getDownloadURL,getMetadata, listAll } from "firebase/storage";
 
+import { v4 as uuidv4 } from 'uuid';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  imageList: {
+    width: 500,
+    height: 450,
+  },
+}));
 
 const SurveySingle = () => {
   const [id, setId] = useState([]);
@@ -26,6 +47,7 @@ const SurveySingle = () => {
   const [date, setDate] = useState([]);
   const [time, setTime] = useState([]);
   const [message, setMessage] = useState([]);
+  const [data, setData] = useState([]);
 
 
   const { currentUser, dispatch } = useContext(AuthContext);
@@ -53,12 +75,32 @@ const SurveySingle = () => {
           setDate(doc.data().date);
           setTime(doc.data().time);
           setMessage(doc.data().message);
+
+          const listRef = ref(storage, "Appliances/" +  currentUser.uid + "/" + doc.data().id);
+          listAll(listRef)
+            .then((res) => {
+              res.prefixes.forEach((folderRef) => {
+                listAll(folderRef);
+              });
+              res.items.forEach((itemRef) => {
+                getDownloadURL(itemRef).then((url) => {
+                  list.push({"id": uuidv4(), "fullPath": url});
+                  //list.push(url)
+                  
+                  //setList(list);
+                  setData(list);
+                });
+                
+              });      
+            });
+            
         }
-        
       });
     }
     fetchData()
   },[])
+
+  console.log("datalist", data)
 
   return (
     <div className="surveySingle">
@@ -121,11 +163,31 @@ const SurveySingle = () => {
               </div> 
               </div>
             </div>
+            
 
+           
+            
             
         </div>
+
+        <div className="bottom">
+        <h1 >Appliances</h1>
+        <div>   
+          <ul>
+          {data.map((newmage) => (
+            <li key={newmage.id} className= "topContainer">
+            <div>
+              <img src={newmage.fullPath} alt="" height ="125" width="125"/>
+            </div>
+            </li>
+          ))}
+          </ul>
+        </div>
+       </div>
+              
+        </div>
       </div>
-    </div>
+    
   );
 };
 

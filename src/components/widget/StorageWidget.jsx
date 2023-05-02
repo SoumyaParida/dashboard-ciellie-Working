@@ -222,22 +222,31 @@ const StorageWidget = () => {
   
 
   return (
-    <div className="widget">
-      <div className="left">
-        <span className="title">{data.title}</span>
-        <span className="counter">
-            {_title}
-        </span>
-       
-        <Link to="/pricing" className="linktitle">{data.link}</Link>
-      </div>
-      <div className="right">
-        <div className="percentage positive">
-            <span className="title">{diff}</span>
-        </div>
-        {data.icon}
-      </div>
-    </div>
+    <div class="card card-stats">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-5">
+                    <div class="info-icon text-center icon-danger">
+                      <i class="tim-icons icon-coins"></i>
+                    </div>
+                  </div>
+                  <div class="col-7">
+                    <div class="numbers">
+                      <p class="card-category">{data.title}</p>
+                      <h3 class="card-title">{_title}</h3> 
+                      <p class="card-category">{diff}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <hr />
+                <div class="stats">
+                <Link to="/pricing" className="linktitle">{data.link}</Link>
+                </div>
+              </div>
+            </div>
+    
   );
 };
 

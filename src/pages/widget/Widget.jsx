@@ -15,7 +15,7 @@ const Widget = () =>{
       <div className="widgetContainernew">
       
       <Navbar />
-
+      <div className="content">
       <div class="center col-lg-6 col-sm-6">
             <div class="card card-timeline card-plain">
               <div class="card-body">
@@ -72,7 +72,7 @@ const Widget = () =>{
               </div>
             </div>
           </div>
-        
+          </div>
         
         
       </div>

@@ -191,7 +191,7 @@ const Register = () => {
                           <i class="tim-icons icon-single-02"></i>
                         </div>
                       </div>
-                      <input type="username" class="form-control" placeholder="username" onChange={e=>setUserName(e.target.value)}/>
+                      <input type="username" class="form-control1" placeholder="username" onChange={e=>setUserName(e.target.value)}/>
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -199,7 +199,7 @@ const Register = () => {
                           <i class="tim-icons icon-email-85"></i>
                         </div>
                       </div>
-                      <input type="email" class="form-control" placeholder="email" onChange={e=>setEmail(e.target.value)}/>
+                      <input type="email" class="form-control1" placeholder="email" onChange={e=>setEmail(e.target.value)}/>
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -207,7 +207,7 @@ const Register = () => {
                           <i class="tim-icons icon-lock-circle"></i>
                         </div>
                       </div>
-                      <input type="password" class="form-control" placeholder="password" onChange={e=>setPassword(e.target.value)} />
+                      <input type="password" class="form-control1" placeholder="password" onChange={e=>setPassword(e.target.value)} />
                     </div>
                     <button type="submit" class="btn btn-primary btn-round">Register</button>
                   </form>

@@ -12,19 +12,21 @@ import { useContext } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import { useLocation } from 'react-router-dom';
 
-const NewSurvey = ({ inputs, title }) => {
+const ScheduleAddressForm = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPer] = useState(null);
   const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
+  const { state: { surveyDataUpdated } = {} } = useLocation();
 
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
 
-    setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
+    setData({ ...data, [id]: value, "id": uuidv4()});
     //console.log("...data", ...data);
   }
 
@@ -32,13 +34,7 @@ const NewSurvey = ({ inputs, title }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const id = e.target.id;
-    const value = e.target.value;
-
-    setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
-    console.log("...data", data);
-
-    navigate("./files", { state: { surveyData: data } });
+    navigate("./files");
     /*try{
       console.log("currentUser.uid" + currentUser.uid);
       const querySnapshot = await addDoc(collection(db, "surveys", currentUser.uid, "survey"),{
@@ -51,6 +47,16 @@ const NewSurvey = ({ inputs, title }) => {
     }*/
   };
 
+  const redirectToProjects = (e) => {
+    console.log("data", data)
+    console.log("surveyData", surveyDataUpdated);
+    
+  }
+
+  const prePart = (e) => {
+    navigate(-1);
+  }
+
   return (
     <div className="widgetnew">
     <Sidebar />
@@ -61,7 +67,7 @@ const NewSurvey = ({ inputs, title }) => {
           <div className="card card-plain">
              
             
-              <form>
+            <form>
                 <div className="card-header text-center">
                     <h3 className="card-title">
                       Schedule a Solar Site Survey
@@ -78,29 +84,27 @@ const NewSurvey = ({ inputs, title }) => {
                       
                       
                       </div>
-                      <div class="stepper-item completed">
+                      <div class="stepper-item active">
                       <Link to="#account" data-toggle="tab"></Link>
                       <div class="step-counter"> <i class="tim-icons icon-settings-gear-63"></i></div>
                       <div class="step-name">FILES</div>
                      
                     </div>
-                    <div class="stepper-item completed">
+                    <div class="stepper-item active">
                     <Link to="/#address" data-toggle="tab"></Link>
                     <div class="step-counter"> <i class="tim-icons icon-delivery-fast"></i></div>
                       <div class="step-name">ADDRESS</div>
                     </div>
-                    <div class="stepper-item completed">
-
-                  </div>
+                    <div class="stepper-item completed"></div>
                   
-            </div>
-          </div>
+                </div>
+                </div>
 
 
                   <div className="card-body">
                   <div className="tab-content">
                     <div className="tab-pane show active" id="info">
-                      <h5 className="info-text"> Basic Site Information</h5>
+                      <h5 className="info-text">Site Address</h5>
                       <div className="row justify-content-center mt-5">
                       
                       
@@ -133,10 +137,14 @@ const NewSurvey = ({ inputs, title }) => {
               </div>
               <div class="card-footer">
                   <div class="pull-right">
-                    <input type='button' class='btn btn-next btn-fill btn-green btn-wd' name='next' value='Next' disabled={per!=null && per<1} onClick={handleUpdate} />
+                  <input type="button" class="btn btn-finish btn-fill btn-primary btn-wd" name="create" value="create" onClick={redirectToProjects} id="create-button" />
                     
                       
                   </div>
+
+                  <div class="pull-left">
+                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' onClick={prePart}/>
+                    </div>
                   
                   <div class="clearfix"></div>
                 </div>
@@ -157,4 +165,4 @@ const NewSurvey = ({ inputs, title }) => {
   );
 };
 
-export default NewSurvey;
+export default ScheduleAddressForm;

@@ -18,7 +18,9 @@ const Home = () => {
       <div className="homeContainer">
       
       <Navbar />
-        
+
+      <div className="content">
+
         <div className="charts">
           
           <Chart title="Total Sites Surveyed" aspect={3 / 1} />
@@ -29,8 +31,10 @@ const Home = () => {
           <ProjectWidget />
           <StorageWidget/>
         </div>
+
         
       </div>
+    </div>
     </div>
   );
 };

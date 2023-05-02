@@ -12,34 +12,33 @@ import { useContext } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import imagePlaceholder from "../../assets/img/image_placeholder.jpg";
+import { useLocation } from 'react-router-dom';
 
-const NewSurvey = ({ inputs, title }) => {
+
+const NewSurveyFiles = () => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPer] = useState(null);
   const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
+  const { state: { surveyData } = {} } = useLocation();
 
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-
-    setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
+    
+    //setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
     //console.log("...data", ...data);
+    setData({"img": file.name})
+    console.log("...data", data);
   }
 
   console.log(data);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const id = e.target.id;
-    const value = e.target.value;
-
-    setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
-    console.log("...data", data);
-
-    navigate("./files", { state: { surveyData: data } });
-    /*try{
+    try{
       console.log("currentUser.uid" + currentUser.uid);
       const querySnapshot = await addDoc(collection(db, "surveys", currentUser.uid, "survey"),{
         ...data
@@ -48,9 +47,27 @@ const NewSurvey = ({ inputs, title }) => {
       console.log("Survey Document written with ID: ", querySnapshot.id);
     } catch (err) {
       console.log(err);
-    }*/
+    }
   };
 
+  const handleRemove = (e) => {
+
+  }
+
+  const nextpart = (e) => {
+    const id = e.target.id;
+    const value = e.target.value;
+    console.log("file.name", file);
+    setData({"img": file.name})
+    console.log("surveyData .data", surveyData);
+    surveyData["image"] = file;
+    console.log("...data", data);
+    navigate("./address", { state: { surveyDataUpdated: surveyData } });
+  }
+  const prePart = (e) => {
+    navigate(-1);
+  }
+  
   return (
     <div className="widgetnew">
     <Sidebar />
@@ -61,7 +78,7 @@ const NewSurvey = ({ inputs, title }) => {
           <div className="card card-plain">
              
             
-              <form>
+            
                 <div className="card-header text-center">
                     <h3 className="card-title">
                       Schedule a Solar Site Survey
@@ -78,7 +95,7 @@ const NewSurvey = ({ inputs, title }) => {
                       
                       
                       </div>
-                      <div class="stepper-item completed">
+                      <div class="stepper-item active">
                       <Link to="#account" data-toggle="tab"></Link>
                       <div class="step-counter"> <i class="tim-icons icon-settings-gear-63"></i></div>
                       <div class="step-name">FILES</div>
@@ -89,55 +106,59 @@ const NewSurvey = ({ inputs, title }) => {
                     <div class="step-counter"> <i class="tim-icons icon-delivery-fast"></i></div>
                       <div class="step-name">ADDRESS</div>
                     </div>
-                    <div class="stepper-item completed">
-
-                  </div>
+                    <div class="stepper-item completed"></div>
                   
-            </div>
-          </div>
+                </div>
+                </div>
 
 
                   <div className="card-body">
-                  <div className="tab-content">
-                    <div className="tab-pane show active" id="info">
-                      <h5 className="info-text"> Basic Site Information</h5>
-                      <div className="row justify-content-center mt-5">
-                      
-                      
-                     
-                      <div className="col-sm-5">
-                      {inputs.map((input) => (
-                          <div class="input-group" key={input.id}>
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">
-                                <i class={input.timIcon}></i>
+                  <div class="tab-pane" id="account">
+                      <h5 class="info-text">Upload any additional files that are essential to the project</h5>
+                      <div class="row justify-content-center">
+                        <div class="col-lg-10 text-center">
+                        <form id="image-upload-form">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                              <div class="fileinput-new thumbnail">
+                              <img
+                                        src={
+                                            file
+                                            ? URL.createObjectURL(file)
+                                            : imagePlaceholder
+                                        }
+                                        alt=""
+                                        />
                               </div>
+
+                              <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                <div>
+                                    <span class="btn btn-primary btn-simple btn-file">
+                                        <label htmlFor="file">Select image</label>
+                                        <label class="fileinput-exists">Change</label>
+                                        <input
+                                            type="file"
+                                            id="file"
+                                            onChange={(e) => setFile(e.target.files[0])}
+                                            style={{ display: "none" }}
+                                            />
+                                        </span>
+                                       
+                                    </div>
                             </div>
-                            <input id={input.id} type={input.type} placeholder={input.placeholder} class="form-control" onChange={handleInput}/>
-                          </div>
-                        ))}
-                          
-                          
+                        </form>
                         </div>
-                      
                       </div>
                     </div>
-
-                    
-
-                    
-
-             
-             
-             
-              </div>
               <div class="card-footer">
                   <div class="pull-right">
-                    <input type='button' class='btn btn-next btn-fill btn-green btn-wd' name='next' value='Next' disabled={per!=null && per<1} onClick={handleUpdate} />
-                    
-                      
+                    <input type='button' class='btn btn-next btn-fill btn-green btn-wd' name='next' value='Next' onClick={nextpart} />  
                   </div>
-                  
+                    <div class="pull-left">
+                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' onClick={prePart}/>
+                    </div>
+                  <div>
+
+                  </div>
                   <div class="clearfix"></div>
                 </div>
               </div>   
@@ -147,7 +168,7 @@ const NewSurvey = ({ inputs, title }) => {
           
           
                 
-          </form>
+          
           </div>
       </div>
       </div>
@@ -157,4 +178,4 @@ const NewSurvey = ({ inputs, title }) => {
   );
 };
 
-export default NewSurvey;
+export default NewSurveyFiles;

@@ -7,15 +7,18 @@ import Single from "./pages/single/Single";
 import SurveySingle from "./pages/single/SurveySingle";
 import New from "./pages/new/New";
 import NewSurvey from "./pages/new/NewSurvey";
+import NewSurveyFiles from "./pages/new/NewSurveyFiles";
+import ScheduleAddressForm from "./pages/new/ScheduleAddressForm";
 import Profile from "./pages/profile/Profile";
 import Pricing from "./pages/pricing/Pricing";
 import Widget from "./pages/widget/Widget";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs, surveyInputs } from "./formSource";
+import { productInputs, userInputs, surveyInputs, surveyAddressInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -50,9 +53,21 @@ function App() {
             <Route path="surveys">
               <Route index element={<RequireAuth><SurveyList /></RequireAuth>} />
               <Route path=":surveyId" element={<RequireAuth><SurveySingle /></RequireAuth>} />
+              
+              
               <Route
                 path="newsurvey"
                 element={<RequireAuth><NewSurvey inputs={surveyInputs} title="Schedule a new Survey" /></RequireAuth>}
+              />
+
+                <Route
+                path="newsurvey/files"
+                element={<RequireAuth><NewSurveyFiles title="Schedule a new Survey" /></RequireAuth>}
+              />
+
+                <Route
+                path="newsurvey/files/address"
+                element={<RequireAuth><ScheduleAddressForm inputs={surveyAddressInputs} title="Schedule a new Survey" /></RequireAuth>}
               />
             </Route>
             

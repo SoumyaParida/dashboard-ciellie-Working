@@ -48,6 +48,7 @@ const SurveySingle = () => {
   const [time, setTime] = useState([]);
   const [message, setMessage] = useState([]);
   const [data, setData] = useState([]);
+  const [tabData, setTabData]  = useState([]);
 
 
   const { currentUser, dispatch } = useContext(AuthContext);
@@ -102,91 +103,165 @@ const SurveySingle = () => {
 
   console.log("datalist", data)
 
+  const accountDetails = async (e) => {
+    let list = [];
+      console.log("currentUser.uid" + currentUser.uid);
+      console.log("state.id" + state.id);
+      const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+        if (doc.data().id == state.id){
+          setId(doc.data().id);
+          setProfileName(doc.data().name);
+          setEmail(doc.data().email);
+          setPhone(doc.data().phone);
+          setAddress(doc.data().address);
+          setPropertyType(doc.data().propertyType)
+          setStatus(doc.data().status);
+          setDate(doc.data().date);
+          setTime(doc.data().time);
+          setMessage(doc.data().message);
+          list.push({"id": doc.data().id, "ProfileName": doc.data().name, "Email": doc.data().email});
+          setTabData(list)  
+        }
+      });
+    }
+
+    const surveyDetails = async (e) => {
+      let list = [];
+      console.log("currentUser.uid" + currentUser.uid);
+      console.log("state.id" + state.id);
+      const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+        if (doc.data().id == state.id){
+          setId(doc.data().id);
+          setProfileName(doc.data().name);
+          setEmail(doc.data().email);
+          setPhone(doc.data().phone);
+          setAddress(doc.data().address);
+          setPropertyType(doc.data().propertyType)
+          setStatus(doc.data().status);
+          setDate(doc.data().date);
+          setTime(doc.data().time);
+          setMessage(doc.data().message);
+          list.push({"Address": doc.data().address, "PropertyType": doc.data().propertyType});
+          setTabData(list)  
+        }
+      });
+    }
+
+  
+
+
   return (
     <div className="surveySingle">
       <Sidebar />
-      <div className="surveySingleContainer">
-        <Navbar />
-        <div className="top">
-        
-          <div className="left">
-          <h1 className="itemTitle">Profile</h1>
-            <div className="item">
-              <div className="details">
-              <div className="detailItem">
-                  <span className="itemKey">Id: </span>
-                  <span className="itemValue">{id}</span>
+        <div className="surveySingleContainer">
+          <Navbar />
+            <div className="content">
+              <div className="col-md-10 mr-auto ml-auto">
+                <div className="card card-plain">
+                  <div className="card-header text-center">
+                    <h3 className="card-title">
+                      Solar Site Survey Full Information
+                    </h3>
+                    <h5 className="description">This information will let us know more about the site we are surveying.</h5>
+
+                    
+                      <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                        <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                          <input type="radio" name="options" checked onClick={accountDetails}/>
+                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Account Details</span>
+                            <span class="d-block d-sm-none">
+                              <i class="tim-icons icon-single-02"></i>
+                            </span>
+                        </label>
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="1">
+                          <input type="radio" class="d-none d-sm-none" name="options" onClick={surveyDetails}/>
+                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Survey Details</span>
+                            <span class="d-block d-sm-none">
+                            <i class="tim-icons icon-gift-2"></i>
+                            </span>
+                        </label>
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="2">
+                          <input type="radio" class="d-none" name="options"/>
+                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Appliance</span>
+                          <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                          </span>
+                        </label>
+
+                        
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="3">
+                          <input type="radio" class="d-none" name="options"/>
+                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Attic</span>
+                          <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                          </span>
+                        </label>
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="4">
+                          <input type="radio" class="d-none" name="options"/>
+                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Electrical</span>
+                          <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                          </span>
+                        </label>
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="5">
+                          <input type="radio" class="d-none" name="options"/>
+                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Roof</span>
+                          <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                          </span>
+                        </label>
+
+                        <label class="btn btn-sm btn-primary btn-simple" id="6">
+                          <input type="radio" class="d-none" name="options"/>
+                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Extra Details</span>
+                          <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                          </span>
+                        </label>
+                      </div>
+                    
+
+                    <div className="card-body">
+                  <div className="tab-content">
+                    <div className="tab-pane show active" id="info">
+                      
+                      <div className="row justify-content-center mt-5">
+                      
+                      
+                     
+                     
+                          
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    
+
+                    
+
+             
+             
+             
+              </div>
+                  
+                  
+                  </div>
                 </div>
-                <div className="detailItem">
-                  <span className="itemKey">Name: </span>
-                  <span className="itemValue">{profileName}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Email: </span>
-                  <span className="itemValue">{email}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Phone: </span>
-                  <span className="itemValue">{phone}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Address: </span>
-                  <span className="itemValue">{address}</span>
-                </div>
-              </div> 
               </div>
             </div>
-            <div className="right">
-            <h1 className="itemTitle">Details</h1>
-            <div className="item">
-              <div className="details">
-              <div className="detailItem">
-                  <span className="itemKey">PropertyTypte: </span>
-                  <span className="itemValue">{propertyType}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Scheduled Date: </span>
-                  <span className="itemValue">{date}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Scheduled Time:: </span>
-                  <span className="itemValue">{time}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Extra Message: </span>
-                  <span className="itemValue">{message}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Status: </span>
-                  <span className="itemValue">{status}</span>
-                </div>
-              </div> 
-              </div>
-            </div>
-            
-
-           
-            
-            
-        </div>
-
-        <div className="bottom">
-        <h1 >Appliances</h1>
-        <div>   
-          <ul>
-          {data.map((newmage) => (
-            <li key={newmage.id} className= "topContainer">
-            <div>
-              <img src={newmage.fullPath} alt="" height ="125" width="125"/>
-            </div>
-            </li>
-          ))}
-          </ul>
-        </div>
-       </div>
-              
         </div>
       </div>
+                    
     
   );
 };

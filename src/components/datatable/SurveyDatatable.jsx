@@ -11,11 +11,20 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
+import Pagination from "../pagination/Pagination";
+import SurveyRecords from "../pagination/SurveyRecords";
+ 
+
 const SurveyDatatable = () => {
   const [data, setSurveyData] = useState([]);
   const { currentUser, dispatch } = useContext(AuthContext);
+  // User is currently on this page
+  const [currentPage, setCurrentPage] = useState(1);
+  // No of Records to be displayed on each page   
+  const [recordsPerPage] = useState(4);
 
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     // access the db collection
@@ -39,7 +48,11 @@ const SurveyDatatable = () => {
     }
     fetchSurveyData()
   },[])
- 
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(data.length / recordsPerPage)
 
   const handleView = (id) => {
     navigate('/surveys/test', { state: { id: id} });
@@ -52,7 +65,7 @@ const SurveyDatatable = () => {
       width: 200,
       renderCell: (params) => {
         return (
-          <button onClick={() => handleView(params.row.id)}>View</button>
+          <button class="btn btn-primary btn-lg btn-block mb-3" onClick={() => handleView(params.row.id)}>View</button>
           
         );
       },
@@ -67,14 +80,14 @@ const SurveyDatatable = () => {
           Schedule a Survey
         </Link>
       </div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={surveyColumns.concat(actionSurveyColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
+      
+      <SurveyRecords data={currentRecords}/>
+            <Pagination
+                nPages={nPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            />
+      
     </div>
   );
 };

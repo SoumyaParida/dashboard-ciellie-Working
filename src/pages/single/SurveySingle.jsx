@@ -20,6 +20,8 @@ import CompletedSurveyDatatable from "../../components/datatable/CompletedSurvey
 import { useLocation } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL,getMetadata, listAll } from "firebase/storage";
 
+import FolderStructure from '../../components/folderStructure/FolderStructure';
+
 import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme) => ({
@@ -169,65 +171,7 @@ const SurveySingle = () => {
                     <h5 className="description">This information will let us know more about the site we are surveying.</h5>
 
                     
-                      <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                        <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                          <input type="radio" name="options" checked onClick={accountDetails}/>
-                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Account Details</span>
-                            <span class="d-block d-sm-none">
-                              <i class="tim-icons icon-single-02"></i>
-                            </span>
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="1">
-                          <input type="radio" class="d-none d-sm-none" name="options" onClick={surveyDetails}/>
-                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Survey Details</span>
-                            <span class="d-block d-sm-none">
-                            <i class="tim-icons icon-gift-2"></i>
-                            </span>
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="2">
-                          <input type="radio" class="d-none" name="options"/>
-                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Appliance</span>
-                          <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                          </span>
-                        </label>
-
-                        
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="3">
-                          <input type="radio" class="d-none" name="options"/>
-                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Attic</span>
-                          <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                          </span>
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="4">
-                          <input type="radio" class="d-none" name="options"/>
-                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Electrical</span>
-                          <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                          </span>
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="5">
-                          <input type="radio" class="d-none" name="options"/>
-                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Roof</span>
-                          <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                          </span>
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-simple" id="6">
-                          <input type="radio" class="d-none" name="options"/>
-                          <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Extra Details</span>
-                          <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                          </span>
-                        </label>
-                      </div>
+                   
                     
 
                     <div className="card-body">
@@ -236,7 +180,7 @@ const SurveySingle = () => {
                       
                       <div className="row justify-content-center mt-5">
                       
-                      
+                      <FolderStructure inputs={data}></FolderStructure>
                      
                      
                           

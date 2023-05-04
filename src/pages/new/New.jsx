@@ -16,8 +16,38 @@ const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPer] = useState(null);
+  const [profileName, setProfileName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [phone, setPhone] = useState([]);
+  const [profileImage, setImage] = useState([]);
+
   const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
+
+  
+
+  useEffect(() => {
+    const fetchData = async() =>{
+      let list = [];
+      console.log("currentUser.uid" + currentUser.uid);
+      const docRef = doc(db, "profiles", currentUser.uid);
+      console.log(docRef);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setProfileName(docSnap.data().name);
+        setEmail(docSnap.data().email);
+        setPhone(docSnap.data().phone);
+        setImage(docSnap.data().image);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+      //setData(list);
+    }
+    fetchData()
+  },[])
 
   useEffect(() => {
     const uploadFile = () => {
@@ -70,12 +100,12 @@ const New = ({ inputs, title }) => {
     setData({ ...data, [id]: value});
   }
 
-  console.log(data);
-
   const handleUpdate = async (e) => {
     e.preventDefault();
     try{
       console.log("currentUser.uid" + currentUser.uid);
+      
+      console.log("data with image", data)
       const res = await setDoc(doc(db, "profiles", currentUser.uid),{
         ...data,
       }, { merge: true })
@@ -88,50 +118,126 @@ const New = ({ inputs, title }) => {
 
   return (
     <div className="new">
-      <Sidebar />
-      <div className="newContainer">
-        <Navbar />
-        <div className="top">
-          <h1>{title}</h1>
-        </div>
-        <div className="bottom">
-          <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div>
-          <div className="right">
-            <form>
-              <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
+    <Sidebar/>
+    <div className="newContainer">
+      <Navbar/>
+      <div className="content">
+          <div className="col-md-10 mr-auto ml-auto">
+          <div className="card card-plain">
+             
+            
+              <form>
+                <div className="card-header text-center">
+                    <h3 className="card-title">
+                      Profile Details
+                    </h3>
+                    <h5 className="description">Here you can see and update Profile details.</h5>
+                    
 
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input id={input.id} type={input.type} placeholder={input.placeholder} onChange={handleInput}/>
+
+                  <div className="card-body">
+                  <div className="tab-content">
+                    <div className="tab-pane show active" id="info">
+                      
+                      <div className="row justify-content-center mt-5">
+                      
+                      
+                     
+                      <div className="col-sm-5">
+
+                      <img
+                                        src={
+                                            file
+                                            ? URL.createObjectURL(file)
+                                            : profileImage
+                                        }
+                                        alt="avatar"
+                                        class = "imgtype"
+                                        
+                                        />
+
+                      <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                      <div>
+                          <span class="btn btn-primary btn-simple btn-file">
+                              <label htmlFor="file">Select image</label>
+                              
+                              <input
+                                  type="file"
+                                  id="file"
+                                  onChange={(e) => setFile(e.target.files[0])}
+                                  style={{ display: "none" }}
+                                  />
+                              </span>                 
+                      </div>
+                      
+                      <p></p>
+                      <p></p>
+                        
+                      <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                              <i class="tim-icons icon-single-02"></i>
+                              </div>
+                            </div>
+                            <input id="name" type="text" placeholder={profileName} class="form-control" onChange={handleInput}/>
+                          </div>
+
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                              <i class="tim-icons icon-mobile"></i>
+                              </div>
+                            </div>
+                            <input id="phone" type="text" placeholder={phone} class="form-control" onChange={handleInput}/>
+                          </div>
+
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                              <i class="tim-icons icon-email-85"></i>
+                              </div>
+                            </div>
+                            <input id="email" type="mail" placeholder={email} class="form-control" disabled/>
+                          </div>
+                      
+                          
+                          
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    
+
+                    
+
+             
+             
+             
+              </div>
+              <div class="card-footer">
+                  
+                    <input type='button' class='btn btn-next btn-fill btn-green btn-wd' name='update' value='Update' disabled={per!=null && per<1} onClick={handleUpdate}/>
+                    
+                      
+                  
+                  
+                  <div class="clearfix"></div>
                 </div>
-              ))}
-              <button disabled={per!=null && per<1} onClick={handleUpdate}>Send</button>
-            </form>
+              </div>   
+               
+            </div>
+          
+          
+          
+                
+          </form>
           </div>
-        </div>
       </div>
-    </div>
+      </div>
+      </div>
+      </div>
+
   );
 };
-
 export default New;

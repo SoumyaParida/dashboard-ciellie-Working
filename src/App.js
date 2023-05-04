@@ -39,7 +39,7 @@ function App() {
             <Route path = "login" element = {<Login />} />
             <Route path = "register" element = {<Register />} />
             <Route index element= {<RequireAuth><Home /></RequireAuth>} />
-            <Route path="/appliance" element = {<Appliances />} />
+            <Route path="/folderimages" element = {<Appliances />} />
             
             <Route path="users">
               <Route index element={<RequireAuth><List /></RequireAuth>} />

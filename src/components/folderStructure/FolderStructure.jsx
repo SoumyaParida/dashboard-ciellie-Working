@@ -15,19 +15,33 @@ import { useContext } from "react";
 const FolderStructure = ({inputs}) => {
   const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
-  console.log("folder startcure", inputs.id)
+  console.log("folder startcure", inputs)
   var list = []
 
-  const handleCLick = async (e) =>{
+  const handleAppliances = (item) => async (e) =>{
+    console.log("value of item", item);
     e.preventDefault();
-    console.log("list", list);
-    navigate("/appliance", { state: { infoId: inputs } });
+    if (item == "appliances"){
+      navigate("/folderimages", { state: { infoId: inputs[0], title: "Appliances" } });
+    }
+    else if (item == "attic"){
+      navigate("/folderimages", { state: { infoId: inputs[1], title: "Attic" } });
+    }
+    else if (item == "electrical"){
+      navigate("/folderimages", { state: { infoId: inputs[2], title: "Electrical" } });
+    }
+    else if (item == "roof"){
+      navigate("/folderimages", { state: { infoId: inputs[3],  title: "Roof" } });
+    }
+    else if (item == "extraDetails"){
+      navigate("/folderimages", { state: { infoId: inputs[4],  title: "ExtraDetails" } });
+    }
+    
   }
-
   
   return (
     <div class="fileinput-new thumbnail row">
-        <Link class="column" onClick={handleCLick}>
+        <Link class="column" onClick={handleAppliances("appliances")}>
         <figure>
             <img
               src={
@@ -38,7 +52,7 @@ const FolderStructure = ({inputs}) => {
             <figcaption><p><b>Appliances</b></p></figcaption>
         </figure></Link>
 
-        <Link class="column">
+        <Link class="column" onClick={handleAppliances("attic")}>
         <figure>
             <img
               src={
@@ -49,7 +63,7 @@ const FolderStructure = ({inputs}) => {
             <figcaption><p><b>Attic</b></p></figcaption>
         </figure></Link>
 
-        <Link class="column">
+        <Link class="column" onClick={handleAppliances("electrical")}>
         <figure>
             <img
               src={
@@ -60,7 +74,7 @@ const FolderStructure = ({inputs}) => {
             <figcaption><p><b>Electrical</b></p></figcaption>
         </figure></Link>
 
-        <Link class="column">
+        <Link class="column" onClick={handleAppliances("roof")}>
         <figure>
             <img
               src={
@@ -71,7 +85,7 @@ const FolderStructure = ({inputs}) => {
             <figcaption><p><b>Roof</b></p></figcaption>
         </figure></Link>
 
-        <Link class="column">
+        <Link class="column" onClick={handleAppliances("extraDetails")}>
         <figure>
             <img
               src={

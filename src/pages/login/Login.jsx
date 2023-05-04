@@ -145,13 +145,14 @@ const Login = () => {
                       <h1 class="card-title">Log in</h1>
                     </div>
                     <div class="card-body">
+                    
                         <div class="input-group">
-                         
+                          
                             <div class="input-group-text">
                               <i class="tim-icons icon-email-85"></i>
                             </div>
                           
-                          <input type="email" class="form-control1" placeholder="email" onChange={e=>setEmail(e.target.value)}/>
+                          <input type="email" class="form-control" placeholder="email" onChange={e=>setEmail(e.target.value)}/>
                         </div>
                         <div class="input-group">
                           
@@ -159,7 +160,7 @@ const Login = () => {
                               <i class="tim-icons icon-lock-circle"></i>
                             </div>
                             
-                          <input type="password" class="form-control1" placeholder="password" onChange={e=>setPassword(e.target.value)} />
+                          <input type="password" class="form-control" placeholder="password" onChange={e=>setPassword(e.target.value)} />
                         </div>
                         <div class="card-footer">
                           <button class="btn btn-primary btn-lg btn-block mb-3" type="submit">Get Started</button>
@@ -177,6 +178,7 @@ const Login = () => {
                           </h6>
                         </div>
 
+                    
                     </div>
                   </div>
                 </form>

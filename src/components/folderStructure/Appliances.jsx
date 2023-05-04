@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Appliances = () => {
   const { currentUser, dispatch } = useContext(AuthContext);
-  const { state: { infoId } = {} } = useLocation();
+  const { state: { infoId, title } = {} } = useLocation();
   const [data, setData] = useState([]);
   let list = [];
  
@@ -67,6 +67,7 @@ const Appliances = () => {
                    
                   <div className="card-body">
                   <div className="tab-content">
+                  <h2 class="info-text-folders"><b>{title}</b></h2>
                     <div className="tab-pane show active" id="info">
                       
                       <div className="fileinput-new thumbnail row">  

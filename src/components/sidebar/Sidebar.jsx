@@ -40,12 +40,12 @@ const Sidebar = () => {
 
       <div class="sidebar-wrapper" data-color="blue">
         <div class="logo" >
-          <a href="javascript:void(0)" class="simple-text logo-mini" data-color="blue">
+          <Link to="/" class="simple-text logo-mini" data-color="blue" style={{ textDecoration: "none" }}>
             C
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          </Link>
+          <Link to="/" class="simple-text logo-normal">
             Ciellie Portal
-          </a>
+          </Link>
         </div>
         <ul class="nav">
         <li>
@@ -57,7 +57,7 @@ const Sidebar = () => {
           </Link>
           </li>
           <li>
-            <Link to="/users" style={{ textDecoration: "none" }}>
+            <Link to="/users/new" style={{ textDecoration: "none" }}>
             
             <i class="tim-icons icon-single-02"></i>
             <p>Profile</p>

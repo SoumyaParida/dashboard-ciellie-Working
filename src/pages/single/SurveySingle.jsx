@@ -23,6 +23,7 @@ import { ref, uploadBytesResumable, getDownloadURL,getMetadata, listAll } from "
 import FolderStructure from '../../components/folderStructure/FolderStructure';
 
 import { v4 as uuidv4 } from 'uuid';
+import Appliances from '../../components/folderStructure/Appliances';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,18 +40,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SurveySingle = () => {
-  const [id, setId] = useState([]);
-  const [profileName, setProfileName] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [phone, setPhone] = useState([]);
-  const [address, setAddress] = useState([]);
-  const [propertyType, setPropertyType] = useState([]);
-  const [status, setStatus] = useState([]);
-  const [date, setDate] = useState([]);
-  const [time, setTime] = useState([]);
-  const [message, setMessage] = useState([]);
-  const [data, setData] = useState([]);
-  const [tabData, setTabData]  = useState([]);
+  const [appliances, setAppliances] = useState([]);
+  const [attaic, setAttaic] = useState([]);
+  const [electrical, setElectrical] = useState([]);
+  const [roof, setRoof] = useState([]);
+  const [extraDetails, setextraDetails] = useState([]);
+
 
 
   const { currentUser, dispatch } = useContext(AuthContext);
@@ -61,25 +56,23 @@ const SurveySingle = () => {
 
   useEffect(() => {
     const fetchData = async() =>{
-      let list = [];
+      let listAppliancs = [];
+      let listAttic = [];
+      let listElectrical = [];
+      let listRoof = [];
+      let listExtraDetails = [];
+
       console.log("currentUser.uid" + currentUser.uid);
       console.log("state.id" + state.id);
       const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
       querySnapshot.forEach((doc) => {
         console.log(doc.data());
         if (doc.data().id == state.id){
-          setId(doc.data().id);
-          setProfileName(doc.data().name);
-          setEmail(doc.data().email);
-          setPhone(doc.data().phone);
-          setAddress(doc.data().address);
-          setPropertyType(doc.data().propertyType)
-          setStatus(doc.data().status);
-          setDate(doc.data().date);
-          setTime(doc.data().time);
-          setMessage(doc.data().message);
+          const folderlist = ["Appliances", "Attic", "Electrical", "Roof", "ExtraDetails"]
 
-          const listRef = ref(storage, "Appliances/" +  currentUser.uid + "/" + doc.data().id);
+          folderlist.map((folder) => {
+
+          const listRef = ref(storage, folder +"/" +  currentUser.uid + "/" + doc.data().id);
           listAll(listRef)
             .then((res) => {
               res.prefixes.forEach((folderRef) => {
@@ -87,75 +80,47 @@ const SurveySingle = () => {
               });
               res.items.forEach((itemRef) => {
                 getDownloadURL(itemRef).then((url) => {
-                  list.push({"id": uuidv4(), "fullPath": url});
+                  
                   //list.push(url)
                   
-                  //setList(list);
-                  setData(list);
+                  if (folder == "Appliances"){
+                    listAppliancs.push({"id": uuidv4(), "fullPath": url});
+                    setAppliances(listAppliancs);
+                  }
+                  else if (folder == "Attic"){
+                    listAttic.push({"id": uuidv4(), "fullPath": url});
+                    setAttaic(listAttic);
+                  }
+                  else if(folder == "Electrical"){
+                    listElectrical.push({"id": uuidv4(), "fullPath": url});
+                    setElectrical(listElectrical)
+                  }
+                  else if (folder == "Roof"){
+                    listRoof.push({"id": uuidv4(), "fullPath": url});
+                    setRoof(listRoof)
+                  }
+                  
+                  else if (folder == "ExtraDetails"){
+                  listExtraDetails.push({"id": uuidv4(), "fullPath": url});
+                   setextraDetails(listExtraDetails)
+                  }
+                  
                 });
                 
               });      
             });
+          });
+           
             
         }
       });
+
+   
     }
     fetchData()
   },[])
 
-  console.log("datalist", data)
-
-  const accountDetails = async (e) => {
-    let list = [];
-      console.log("currentUser.uid" + currentUser.uid);
-      console.log("state.id" + state.id);
-      const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        if (doc.data().id == state.id){
-          setId(doc.data().id);
-          setProfileName(doc.data().name);
-          setEmail(doc.data().email);
-          setPhone(doc.data().phone);
-          setAddress(doc.data().address);
-          setPropertyType(doc.data().propertyType)
-          setStatus(doc.data().status);
-          setDate(doc.data().date);
-          setTime(doc.data().time);
-          setMessage(doc.data().message);
-          list.push({"id": doc.data().id, "ProfileName": doc.data().name, "Email": doc.data().email});
-          setTabData(list)  
-        }
-      });
-    }
-
-    const surveyDetails = async (e) => {
-      let list = [];
-      console.log("currentUser.uid" + currentUser.uid);
-      console.log("state.id" + state.id);
-      const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        if (doc.data().id == state.id){
-          setId(doc.data().id);
-          setProfileName(doc.data().name);
-          setEmail(doc.data().email);
-          setPhone(doc.data().phone);
-          setAddress(doc.data().address);
-          setPropertyType(doc.data().propertyType)
-          setStatus(doc.data().status);
-          setDate(doc.data().date);
-          setTime(doc.data().time);
-          setMessage(doc.data().message);
-          list.push({"Address": doc.data().address, "PropertyType": doc.data().propertyType});
-          setTabData(list)  
-        }
-      });
-    }
-
-  
-
-
+  console.log("appliances", appliances)
   return (
     <div className="surveySingle">
       <Sidebar />
@@ -180,7 +145,7 @@ const SurveySingle = () => {
                       
                       <div className="row justify-content-center mt-5">
                       
-                      <FolderStructure inputs={data}></FolderStructure>
+                        <FolderStructure inputs={[appliances, attaic, electrical, roof, extraDetails]}></FolderStructure>
                      
                      
                           

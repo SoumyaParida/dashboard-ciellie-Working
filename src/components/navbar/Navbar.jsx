@@ -77,32 +77,19 @@ const Navbar = () => {
              
               <li class="dropdown nav-item">
                 
-                  <div class="photo">
+                 
                             <img
                         src={data}
                         alt=""
-                        className="avatar"
+                        class="imgNavbar"
                       />
-                  </div>
-                  <b class="caret d-none d-lg-block d-xl-block"></b>
-                  <p class="d-lg-none">
-                    Log out
-                  </p>
+                  
+                  
+                  
                 
-                <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link">
-                    Profile
-                  </li>
-                  <li class="nav-link">
-                   Settings
-                  </li>
-                  <li class="dropdown-divider"></li>
-                  <li class="nav-link">
-                   Log out
-                  </li>
-                </ul>
+                
               </li>
-              <li class="separator d-lg-none"></li>
+              
             </ul>
           </div>
         </div>

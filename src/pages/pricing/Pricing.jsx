@@ -91,7 +91,7 @@ const Pricing = () =>{
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <div class="card card-pricing card-success card-white">
+              <div class="card card-pricing card-success">
                 <div class="card-body">
                   <h1 class="card-title">basic</h1>
                   <img class="card-img" src={cardsuccess} alt="Image" />
@@ -115,7 +115,7 @@ const Pricing = () =>{
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <div class="card card-pricing card-warning card-raised card-white">
+              <div class="card card-pricing card-warning card-raised">
                 <div class="card-body">
                   <h1 class="card-title">mid</h1>
                   <img class="card-img" src={cardwarning} alt="Image" />
@@ -139,7 +139,7 @@ const Pricing = () =>{
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <div class="card card-pricing card-danger card-white">
+              <div class="card card-pricing card-danger">
                 <div class="card-body">
                   <h1 class="card-title">trial</h1>
                   <img class="card-img" src={carddanger} alt="Image"/>

@@ -146,7 +146,7 @@ const ProjectWidget = () => {
               <div class="card-footer">
                 <hr />
                 <div class="stats">
-                <Link to="/users/test" className="linktitle">{data.link}</Link>
+                <Link to="/surveys" className="linktitle">{data.link}</Link>
                 </div>
               </div>
             </div>

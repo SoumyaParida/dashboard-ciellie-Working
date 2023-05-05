@@ -1,0 +1,11 @@
+.surveySingle {
+    display: flex;
+    width: 100%;
+    .surveySingleContainer {
+      flex: 6;
+      .content {
+        padding: 80px 20px 30px 120px;
+        min-height: calc(100vh - 70px); 
+      }
+    }
+  }

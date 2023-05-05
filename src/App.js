@@ -1,18 +1,22 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import List from "./pages/list/List";
-import SurveyList from "./pages/list/SurveyList";
-import Single from "./pages/single/Single";
-import New from "./pages/new/New";
 import Profile from "./pages/profile/Profile";
 import Pricing from "./pages/pricing/Pricing";
+import ShowAllSurveys from "./pages/survey/ShowAllSurveys";
+import ViewSingleSurvey from "./pages/survey/ViewSingleSurvey";
+import ScheduleSurvey from "./pages/survey/ScheduleSurvey";
+import UploadFile from "./pages/survey/UploadFile";
+import GenerateScheduleSurvey from "./pages/survey/GenerateScheduleSurvey";
+import Timeline from "./pages/3Dmodel/Timeline";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { productInputs, userInputs, surveyInputs, surveyAddressInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+import Appliances from "./components/folderStructure/Appliances";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -33,32 +37,27 @@ function App() {
             <Route path = "login" element = {<Login />} />
             <Route path = "register" element = {<Register />} />
             <Route index element= {<RequireAuth><Home /></RequireAuth>} />
-            <Route path="/profile" element = {<Profile />} />
-            
-            <Route path="users">
-              <Route index element={<RequireAuth><List /></RequireAuth>} />
-              <Route path=":userId" element={<RequireAuth><Single /></RequireAuth>} />
-              <Route
-                path="new"
-                element={<RequireAuth><New inputs={userInputs} title="Add New User" /></RequireAuth>}
-              />
-            </Route>
-            
+            <Route path="/folderimages" element = {<Appliances />} />
+            <Route path="profile" element={<RequireAuth><Profile inputs={userInputs} title="Edit Profile" /></RequireAuth>}/>
             <Route path="surveys">
-              <Route index element={<RequireAuth><SurveyList /></RequireAuth>} />
-            </Route>
-            
-            
-            <Route path="products">
-              <Route index element={<RequireAuth><List /></RequireAuth>} />
-              <Route path=":productId" element={<RequireAuth><Single /></RequireAuth>} />
+              <Route index element={<RequireAuth><ShowAllSurveys /></RequireAuth>} />
+              <Route path="view" element={<RequireAuth><ViewSingleSurvey /></RequireAuth>} />
               <Route
-                path="new"
-                element={<RequireAuth><New inputs={productInputs} title="Add New Product" /></RequireAuth>}
+                path="newsurvey"
+                element={<RequireAuth><ScheduleSurvey inputs={surveyInputs} title="Schedule a new Survey" /></RequireAuth>}
+              />
+                <Route
+                path="newsurvey/files"
+                element={<RequireAuth><UploadFile title="Schedule a new Survey" /></RequireAuth>}
+              />
+                <Route
+                path="newsurvey/files/address"
+                element={<RequireAuth><GenerateScheduleSurvey inputs={surveyAddressInputs} title="Schedule a new Survey" /></RequireAuth>}
               />
             </Route>
-          </Route>
-          <Route path="pricing" element = {<Pricing />} />
+            <Route path="pricing" element = {<Pricing />} />
+            <Route path="timeline" element = {<Timeline />} />
+          </Route>  
         </Routes>
       </BrowserRouter>
     </div>

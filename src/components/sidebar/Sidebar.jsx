@@ -29,54 +29,53 @@ const Sidebar = () => {
   }
 
   return (
+    <div className="sidebar-mini">
+      <div className="navbar-minimize-fixed">
+      <button className="minimize-sidebar btn btn-link btn-just-icon">
+        <i className="tim-icons icon-align-center visible-on-sidebar-regular text-muted" ></i>
+        <i className="tim-icons icon-bullet-list-67 visible-on-sidebar-mini text-muted"></i>
+      </button>
+    </div>
     <div className="sidebar">
-      <div className="top">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Ciellie</span>
-        </Link>
-      </div>
-      <hr />
-      <div className="center">
-        <ul>
-          <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
-          <p className="title">Survey Manager</p>
+
+      <div className="sidebar-wrapper" data-color="blue">
+        <div className="logo" >
+          <Link to="/" className="simple-text logo-mini" data-color="blue" style={{ textDecoration: "none" }}>
+            C
+          </Link>
+          <Link to="/" className="simple-text logo-normal">
+            Ciellie Portal
+          </Link>
+        </div>
+        <ul className="nav">
+        <li>
           <Link to="/surveys" style={{ textDecoration: "none" }}>
-            <li>
-              <PsychologyOutlinedIcon className="icon" />
-              <span>Surveys</span>
-            </li>
-          </Link>
           
-          <p className="title">USER</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
+            <i className="tim-icons icon-settings"></i>
+            <p>Projects</p>
+          
+          </Link>
           </li>
-          </Link>
-          
+          <li>
+            <Link to="/profile" style={{ textDecoration: "none" }}>
             
-          <li>
-            <ExitToAppIcon className="icon"/>
-            <span onClick={handlelogout}>Logout</span>
+            <i className="tim-icons icon-single-02"></i>
+            <p>Profile</p>
+        
+            </Link>
           </li>
-          
+
+          <li>
+            
+          <Link style={{ textDecoration: "none" }}>
+            <i className="tim-icons icon-button-power"></i>
+            <p onClick={handlelogout}>Logout</p>
+            </Link>
+            
+          </li>
         </ul>
       </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
-        ></div>
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
-        ></div>
-      </div>
+    </div>
     </div>
   );
 };

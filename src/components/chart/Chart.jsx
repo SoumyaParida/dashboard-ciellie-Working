@@ -30,7 +30,7 @@ const Chart = ({ aspect, title }) => {
   const [nov, setNov] = useState([]);
   const [dec, setDec] = useState([]);
 
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     // access the db collection
@@ -49,7 +49,6 @@ const Chart = ({ aspect, title }) => {
     var counterDec = 0;
 
     const fetchData = async() =>{
-      let list = [];
       //console.log("currentUser.uid" + currentUser.uid);
       const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "scheduled"));
       const querySnapshot = await getDocs(q);
@@ -97,7 +96,7 @@ const Chart = ({ aspect, title }) => {
       setDec(counterDec);
     }
     fetchData()
-  },[])
+  });
 
   const data = [
     { name: "January", Total: jan },

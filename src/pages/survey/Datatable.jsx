@@ -1,30 +1,21 @@
 import "./datatable.scss"
-import { DataGrid } from "@mui/x-data-grid";
-import { surveyColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-//import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
 
 import Pagination from "../../components/pagination/Pagination";
 import Records from "./Records";
  
-
 const Datatable = () => {
   const [data, setSurveyData] = useState([]);
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   // User is currently on this page
   const [currentPage, setCurrentPage] = useState(1);
   // No of Records to be displayed on each page   
   const [recordsPerPage] = useState(4);
-
-  const navigate = useNavigate();
-  
 
   useEffect(() => {
     // access the db collection
@@ -41,7 +32,7 @@ const Datatable = () => {
       setSurveyData(list);
     }
     fetchSurveyData()
-  },[])
+  })
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;

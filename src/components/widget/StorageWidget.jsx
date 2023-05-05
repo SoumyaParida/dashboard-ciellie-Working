@@ -15,14 +15,13 @@ const StorageWidget = () => {
   const [extraDetails, setExtraDetails] = useState([]);
   const [roof, setRoof] = useState([]);
 
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   let data;
 
   useEffect(() => {
     // access the db collection
     
     const fetchSurveyData = async() =>{
-      let list = [];
       let storageFolders = [];
       var storageCount = 0;
       var storageAppliancesCount = 0;
@@ -173,7 +172,7 @@ const StorageWidget = () => {
       
     }
     fetchSurveyData()
-  },[])
+  },[]);
 
   var storageValueInMB =  Math.round((appliances +  attic + electrical + extraDetails + roof) / 1000000).toFixed(2); 
   //temporary

@@ -24,7 +24,7 @@ const ViewSingleSurvey = () => {
   const [roof, setRoof] = useState([]);
   const [extraDetails, setextraDetails] = useState([]);
 
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   const { state } = useLocation();
 
@@ -43,7 +43,7 @@ const ViewSingleSurvey = () => {
       const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
       querySnapshot.forEach((doc) => {
         //console.log(doc.data());
-        if (doc.data().id == state.id){
+        if (doc.data().id === state.id){
           const folderlist = ["Appliances", "Attic", "Electrical", "Roof", "ExtraDetails"]
 
           folderlist.map((folder) => {
@@ -59,24 +59,24 @@ const ViewSingleSurvey = () => {
                   
                   //list.push(url)
                   
-                  if (folder == "Appliances"){
+                  if (folder === "Appliances"){
                     listAppliancs.push({"id": uuidv4(), "fullPath": url});
                     setAppliances(listAppliancs);
                   }
-                  else if (folder == "Attic"){
+                  else if (folder === "Attic"){
                     listAttic.push({"id": uuidv4(), "fullPath": url});
                     setAttaic(listAttic);
                   }
-                  else if(folder == "Electrical"){
+                  else if(folder === "Electrical"){
                     listElectrical.push({"id": uuidv4(), "fullPath": url});
                     setElectrical(listElectrical)
                   }
-                  else if (folder == "Roof"){
+                  else if (folder === "Roof"){
                     listRoof.push({"id": uuidv4(), "fullPath": url});
                     setRoof(listRoof)
                   }
                   
-                  else if (folder == "ExtraDetails"){
+                  else if (folder === "ExtraDetails"){
                   listExtraDetails.push({"id": uuidv4(), "fullPath": url});
                    setextraDetails(listExtraDetails)
                   }

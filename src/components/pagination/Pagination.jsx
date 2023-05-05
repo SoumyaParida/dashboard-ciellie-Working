@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
 
@@ -16,32 +17,32 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
         <nav>
             <ul className='pagination justify-content-center'>
                 <li className="page-item">
-                    <a className="page-link" 
+                    <Link className="page-link" 
                         onClick={prevPage} 
-                        href='#'>
+                        >
                         
                         Previous
-                    </a>
+                    </Link>
                 </li>
                 {pageNumbers.map(pgNumber => (
                     <li key={pgNumber} 
-                        className= {`page-item ${currentPage == pgNumber ? 'active' : ''} `} >
+                        className= {`page-item ${currentPage === pgNumber ? 'active' : ''} `} >
 
-                        <a onClick={() => setCurrentPage(pgNumber)}  
+                        <Link onClick={() => setCurrentPage(pgNumber)}  
                             className='page-link' 
-                            href='#'>
+                            >
                             
                             {pgNumber}
-                        </a>
+                        </Link>
                     </li>
                 ))}
                 <li className="page-item">
-                    <a className="page-link" 
+                    <Link className="page-link" 
                         onClick={nextPage}
-                        href='#'>
+                        >
                         
                         Next
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </nav>

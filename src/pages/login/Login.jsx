@@ -27,7 +27,7 @@ const Login = () => {
       .then(async (userCredential) => {
           const querySnapshot = await getDocs(collection(db, "profiles"));
           querySnapshot.forEach((doc) => {
-            if (doc.data().email == email){
+            if (doc.data().email === email){
               userCredential.user.uid = doc.data().id;
             }
           });

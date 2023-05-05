@@ -4,31 +4,26 @@ import { Link } from "react-router-dom";
 import imagePlaceholder from "../../assets/img/images.png";
 import { useNavigate } from "react-router-dom";
 
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
-
 const FolderStructure = ({inputs}) => {
-  const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
-  //console.log("folder startcure", inputs)
-  var list = []
-
+  console.log("folder startcure", inputs)
+  
   const handleAppliances = (item) => async (e) =>{
     console.log("value of item", item);
     e.preventDefault();
-    if (item == "appliances"){
+    if (item === "appliances"){
       navigate("/folderimages", { state: { infoId: inputs[0], title: "Appliances" } });
     }
-    else if (item == "attic"){
+    else if (item === "attic"){
       navigate("/folderimages", { state: { infoId: inputs[1], title: "Attic" } });
     }
-    else if (item == "electrical"){
+    else if (item === "electrical"){
       navigate("/folderimages", { state: { infoId: inputs[2], title: "Electrical" } });
     }
-    else if (item == "roof"){
+    else if (item === "roof"){
       navigate("/folderimages", { state: { infoId: inputs[3],  title: "Roof" } });
     }
-    else if (item == "extraDetails"){
+    else if (item === "extraDetails"){
       navigate("/folderimages", { state: { infoId: inputs[4],  title: "ExtraDetails" } });
     }
     

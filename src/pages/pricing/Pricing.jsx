@@ -68,7 +68,7 @@ const Pricing = () =>{
               <div className="card card-pricing card-primary">
                 <div className="card-body">
                   <h1 className="card-title">pro</h1>
-                  <img className="card-img" src={priceimg} alt="Image" />
+                  <img className="card-img" src={priceimg} alt="Price" />
                   <ul className="list-group">
                     <li className="list-group-item">300 messages</li>
                     <li className="list-group-item">150 emails</li>
@@ -92,7 +92,7 @@ const Pricing = () =>{
               <div className="card card-pricing card-success">
                 <div className="card-body">
                   <h1 className="card-title">basic</h1>
-                  <img className="card-img" src={cardsuccess} alt="Image" />
+                  <img className="card-img" src={cardsuccess} alt="Success" />
                   <ul className="list-group">
                     <li className="list-group-item">50 messages</li>
                     <li className="list-group-item">100 emails</li>
@@ -116,7 +116,7 @@ const Pricing = () =>{
               <div className="card card-pricing card-warning card-raised">
                 <div className="card-body">
                   <h1 className="card-title">mid</h1>
-                  <img className="card-img" src={cardwarning} alt="Image" />
+                  <img className="card-img" src={cardwarning} alt="Warning" />
                   <ul className="list-group">
                     <li className="list-group-item">200 messages</li>
                     <li className="list-group-item">130 emails</li>
@@ -140,7 +140,7 @@ const Pricing = () =>{
               <div className="card card-pricing card-danger">
                 <div className="card-body">
                   <h1 className="card-title">trial</h1>
-                  <img className="card-img" src={carddanger} alt="Image"/>
+                  <img className="card-img" src={carddanger} alt="Danger"/>
                   <ul className="list-group">
                     <li className="list-group-item">50 messages</li>
                     <li className="list-group-item">50 emails</li>

@@ -1,7 +1,7 @@
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { Link } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
@@ -9,8 +9,7 @@ import { db } from "../../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const ModelWidget = () => {
-  const [projects, setProjects] = useState([]);
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   let data;
 
   useEffect(() => {
@@ -26,11 +25,9 @@ const ModelWidget = () => {
         count = count + 1;
         list.push({ id: doc.id, ...doc.data()});
       });
-      
-      setProjects(count);
     }
     fetchData()
-  },[])
+  });
 
   const _title = "Coming Soon";
   const diff = "/TBD" ;

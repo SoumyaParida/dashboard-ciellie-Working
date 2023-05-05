@@ -1,18 +1,11 @@
 import React from 'react';
 import "./folderStructure.scss";
-
-import {  useState } from "react";
 import { useLocation } from 'react-router-dom';
-
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 
 const Appliances = () => {
   const { state: { infoId, title } = {} } = useLocation();
-  const [data, setData] = useState([]);
-  let list = [];
-  //console.log("currentUser", currentUser.uid);
-  //console.log("new state.id", infoId);
   return (
     <div className="surveySingle">
       <Sidebar />

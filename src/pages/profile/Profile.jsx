@@ -1,12 +1,9 @@
 import "./profile.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db, storage } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -21,14 +18,13 @@ const Profile = ({ inputs, title }) => {
   const [phone, setPhone] = useState([]);
   const [profileImage, setImage] = useState([]);
 
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate()
 
   
 
   useEffect(() => {
     const fetchData = async() =>{
-      let list = [];
       console.log("currentUser.uid" + currentUser.uid);
       const docRef = doc(db, "profiles", currentUser.uid);
       console.log(docRef);
@@ -47,7 +43,7 @@ const Profile = ({ inputs, title }) => {
       //setData(list);
     }
     fetchData()
-  },[])
+  });
 
   useEffect(() => {
     const uploadFile = () => {
@@ -71,6 +67,9 @@ const Profile = ({ inputs, title }) => {
               console.log('Upload is paused');
               break;
             case 'running':
+              console.log('Upload is running');
+              break;
+            default:
               console.log('Upload is running');
               break;
           }

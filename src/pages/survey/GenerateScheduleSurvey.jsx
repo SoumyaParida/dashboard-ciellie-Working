@@ -4,20 +4,19 @@ import Navbar from "../../components/navbar/Navbar";
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addDoc, doc, getDoc, setDoc, collection } from "firebase/firestore";
-import { auth, db, storage } from "../../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { db, storage } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from 'react-router-dom';
 
 const GenerateScheduleSurvey = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
-  const [per, setPer] = useState(null);
-  const { currentUser, dispatch } = useContext(AuthContext);
+  //const [per, setPer] = useState(null);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate()
   const { state: { surveyDataUpdated } = {} } = useLocation();
 
@@ -45,12 +44,15 @@ const GenerateScheduleSurvey = ({ inputs, title }) => {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('Upload is ' + progress + '% done');
-          setPer(progress);
+          //setPer(progress);
           switch (snapshot.state) {
             case 'paused':
               console.log('Upload is paused');
               break;
             case 'running':
+              console.log('Upload is running');
+              break;
+            default:
               console.log('Upload is running');
               break;
           }

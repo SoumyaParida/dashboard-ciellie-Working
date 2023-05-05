@@ -11,7 +11,7 @@ import GenerateScheduleSurvey from "./pages/survey/GenerateScheduleSurvey";
 import Timeline from "./pages/3Dmodel/Timeline";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs, surveyInputs, surveyAddressInputs } from "./formSource";
+import { userInputs, surveyInputs, surveyAddressInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";

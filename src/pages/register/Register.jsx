@@ -9,7 +9,6 @@ import { auth, db }  from "../../firebase";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 const Register = () => {
-  const [error, setError] = useState(false);
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +18,6 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const citiesRef = collection(db, "users");
     
     try { 
       createUserWithEmailAndPassword(auth, email, password)
@@ -29,7 +27,7 @@ const Register = () => {
               email: email
           });
 
-          const res = await setDoc(doc(db, "profiles", docRef.id),{
+          await setDoc(doc(db, "profiles", docRef.id),{
             name: username,
             email: email,
             phone: "",
@@ -138,7 +136,7 @@ const Register = () => {
             <div className="col-md-7 mr-auto">
               <div className="card card-register card-white">
                 <div className="card-header">
-                  <img className="card-img" src={primarycard} alt="Card image" />
+                  <img className="card-img" src={primarycard} alt="Card" />
                   <h4 className="card-title">Register</h4>
                 </div>
                 <div className="card-body">

@@ -11,7 +11,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 
 const SurveyThisMonth = () => {
   const [projects, setProjects] = useState([]);
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   let data;
 
   const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
@@ -37,12 +37,10 @@ const SurveyThisMonth = () => {
       setProjects(count);
     }
     fetchData()
-  },[])
+  });
 
   //temporary
   const _title = projects;
-  //const _description = "/200 GB";
-  const diff = 20 ;
   data = {
     title: "Surveys This Month",
     isMoney: false,

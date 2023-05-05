@@ -1,17 +1,10 @@
 import "./scheduleSurvey.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { addDoc, doc, getDoc, setDoc, collection } from "firebase/firestore";
-import { auth, db, storage } from "../../firebase";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
 import imagePlaceholder from "../../assets/img/image_placeholder.jpg";
 import { useLocation } from 'react-router-dom';
 
@@ -19,44 +12,12 @@ import { useLocation } from 'react-router-dom';
 const UploadFile = () => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
-  const [per, setPer] = useState(null);
-  const { currentUser, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
   const { state: { surveyData } = {} } = useLocation();
 
-  const handleInput = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-    
-    //setData({ ...data, [id]: value, "id": uuidv4(), "status": "scheduled"});
-    //console.log("...data", ...data);
-    setData({"img": file.name})
-    console.log("...data", data);
-  }
-
   console.log(data);
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    try{
-      console.log("currentUser.uid" + currentUser.uid);
-      const querySnapshot = await addDoc(collection(db, "surveys", currentUser.uid, "survey"),{
-        ...data
-      });
-      navigate(-1)
-      console.log("Survey Document written with ID: ", querySnapshot.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleRemove = (e) => {
-
-  }
-
   const nextpart = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
     console.log("file.name", file);
     setData({"img": file.name})
     console.log("surveyData .data", surveyData);

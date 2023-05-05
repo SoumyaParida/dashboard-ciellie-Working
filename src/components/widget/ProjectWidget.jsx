@@ -11,20 +11,9 @@ import moment from 'moment';
 
 const ProjectWidget = () => {
   const [projects, setProjects] = useState([]);
-  const { currentUser, dispatch } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  const [jan, setJan] = useState([]);
-  const [feb, setFeb] = useState([]);
-  const [mar, setMar] = useState([]);
-  const [apr, setApr] = useState([]);
-  const [may, setMay] = useState([]);
-  const [jun, setJun] = useState([]);
-  const [jul, setJul] = useState([]);
-  const [aug, setAug] = useState([]);
-  const [sep, setSep] = useState([]);
-  const [oct, setOct] = useState([]);
-  const [nov, setNov] = useState([]);
-  const [dec, setDec] = useState([]);
+
 
   let data;
 
@@ -45,8 +34,6 @@ const ProjectWidget = () => {
     var counterDec = 0;
 
     const fetchData = async() =>{
-      let list = [];
-      //console.log("currentUser.uid" + currentUser.uid);
       const q = query(collection(db, "surveys", currentUser.uid, "survey"), where("status", "==", "completed"));
       const querySnapshot = await getDocs(q);
       
@@ -78,27 +65,15 @@ const ProjectWidget = () => {
           counterDec = counterDec + 1 ;
         }
       });
-      setJan(counterJan);
-      setFeb(counterFeb);
-      setMar(counterMar);
-      setApr(counterApr);
-      setMay(counterMay);
-      setJun(counterJun);
-      setJul(counterJul);
-      setAug(counterAug);
-      setSep(counterSep);
-      setOct(counterOct);
-      setNov(counterNov);
-      setDec(counterDec);
+      
       count  =  counterJan + counterFeb + counterMar + counterApr + counterMay + counterJun + counterJul + counterAug + counterSep + counterOct + counterNov + counterDec
       setProjects(count);
     }
     fetchData()
-  },[])
+  });
 
   //temporary
   const _title = projects;
-  const diff = 20 ;
   data = {
     title: "Projects Completed",
     isMoney: false,

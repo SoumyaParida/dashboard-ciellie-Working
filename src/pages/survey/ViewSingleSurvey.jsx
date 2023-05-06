@@ -47,8 +47,8 @@ const ViewSingleSurvey = () => {
           const folderlist = ["Appliances", "Attic", "Electrical", "Roof", "ExtraDetails"]
 
           folderlist.map((folder) => {
-
-          const listRef = ref(storage, folder +"/" +  currentUser.uid + "/" + doc.data().id);
+          const listRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + folder);
+          //const listRef = ref(storage, folder +"/" +  currentUser.uid + "/" + doc.data().id);
           listAll(listRef)
             .then((res) => {
               res.prefixes.forEach((folderRef) => {

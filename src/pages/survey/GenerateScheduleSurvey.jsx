@@ -31,7 +31,9 @@ const GenerateScheduleSurvey = ({ inputs, title }) => {
     const uploadFile = () => {
       
       const name = "profile_" + file.name;
-      const storageRef = ref(storage, "ExtraDetails" + "/" + currentUser.uid + "/" + surveyDataUpdated.id + "/" + name);
+      //const listRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + folder);
+      const storageRef = ref(storage, currentUser.uid + "/" + surveyDataUpdated.id + "/" + "ExtraDetails" + "/" + name);
+      //const storageRef = ref(storage, "ExtraDetails" + "/" + currentUser.uid + "/" + surveyDataUpdated.id + "/" + name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       // Register three observers:

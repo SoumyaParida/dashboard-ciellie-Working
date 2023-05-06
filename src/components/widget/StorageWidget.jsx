@@ -30,6 +30,7 @@ const StorageWidget = () => {
       var storageExtraDetailsCount = 0;
       var storageRoofCount = 0;
 
+      //const storageRef = ref(storage, currentUser.uid + "/" + surveyDataUpdated.id + "/" + "ExtraDetails" + "/" + name);
       const querySnapshot = await getDocs(collection(db, "surveys", currentUser.uid, "survey"));
       querySnapshot.forEach((doc) => {
         //console.log(doc.data());
@@ -40,7 +41,8 @@ const StorageWidget = () => {
         storageFolders.push("ExtraDetails");
         storageFolders.push("Roof");
 
-        const listRef = ref(storage, "Appliances/" +  currentUser.uid + "/" + doc.data().id);
+        //const listRef = ref(storage, "Appliances/" +  currentUser.uid + "/" + doc.data().id);
+        const listRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + "Appliances");
         listAll(listRef)
           .then((res) => {
             res.prefixes.forEach((folderRef) => {
@@ -67,7 +69,8 @@ const StorageWidget = () => {
             console.log(err);
           });
 
-          const listAtticRef = ref(storage, "Attic/" +  currentUser.uid + "/" + doc.data().id);
+          
+          const listAtticRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + "Attic");
           listAll(listAtticRef)
           .then((res) => {
             res.prefixes.forEach((folderRef) => {
@@ -94,7 +97,8 @@ const StorageWidget = () => {
             console.log(err);
           });
 
-          const listElectricalRef = ref(storage, "Electrical/" +  currentUser.uid + "/" + doc.data().id);
+
+          const listElectricalRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + "Electrical");
           listAll(listElectricalRef)
           .then((res) => {
             res.prefixes.forEach((folderRef) => {
@@ -119,7 +123,7 @@ const StorageWidget = () => {
             console.log(err);
           });
 
-          const listExtraDetailsRef = ref(storage, "ExtraDetails/" +  currentUser.uid + "/" + doc.data().id);
+          const listExtraDetailsRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + "ExtraDetails");
           listAll(listExtraDetailsRef)
           .then((res) => {
             res.prefixes.forEach((folderRef) => {
@@ -144,7 +148,7 @@ const StorageWidget = () => {
               console.log(err);
             });
 
-            const listRoofRef = ref(storage, "Roof/" +  currentUser.uid + "/" + doc.data().id);
+            const listRoofRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + "Roof");
             listAll(listRoofRef)
             .then((res) => {
               res.prefixes.forEach((folderRef) => {

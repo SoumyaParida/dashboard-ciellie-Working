@@ -26,8 +26,10 @@ const SurveyThisMonth = () => {
       const querySnapshot = await getDocs(q);
       
       querySnapshot.forEach((doc) => {
-        //console.log(doc.data());
-        if ((doc.data().date > startOfMonth) && (doc.data().date < endOfMonth)){
+        console.log(doc.data());
+        console.log("doc.data().date = " + doc.data().date);
+        console.log("startOfMonth = " + startOfMonth);
+        if ((doc.data().date >= startOfMonth) && (doc.data().date <= endOfMonth)){
             count = count + 1;
             list.push({ id: doc.id, ...doc.data()});
         }

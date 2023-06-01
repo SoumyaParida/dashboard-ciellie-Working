@@ -6,7 +6,11 @@ import Pricing from "./pages/pricing/Pricing";
 import ShowAllSurveys from "./pages/survey/ShowAllSurveys";
 import ViewSingleSurvey from "./pages/survey/ViewSingleSurvey";
 import ScheduleSurvey from "./pages/survey/ScheduleSurvey";
-import UploadFile from "./pages/survey/UploadFile";
+import UploadAppliancesFile from "./pages/survey/UploadAppliancesFile";
+import UploadAtticFile from "./pages/survey/UploadAtticFile";
+import UploadElectricalFile from "./pages/survey/UploadElectricalFile";
+import UploadRoofFile from "./pages/survey/UploadRoofFile";
+import UploadExtraDetailsFile from "./pages/survey/UploadExtraDetailsFile";
 import GenerateScheduleSurvey from "./pages/survey/GenerateScheduleSurvey";
 import Timeline from "./pages/3Dmodel/Timeline";
 
@@ -48,10 +52,31 @@ function App() {
               />
                 <Route
                 path="newsurvey/files"
-                element={<RequireAuth><UploadFile title="Schedule a new Survey" /></RequireAuth>}
+                element={<RequireAuth><UploadAppliancesFile title="Schedule a new Survey" /></RequireAuth>}
               />
+
+              <Route
+                path="newsurvey/files/attaic"
+                element={<RequireAuth><UploadAtticFile title="Schedule a new Survey" /></RequireAuth>}
+              />
+
+              <Route
+                path="newsurvey/files/attaic/electrical"
+                element={<RequireAuth><UploadElectricalFile title="Schedule a new Survey" /></RequireAuth>}
+              />
+
+              <Route
+                path="newsurvey/files/attaic/electrical/roof"
+                element={<RequireAuth><UploadRoofFile title="Schedule a new Survey" /></RequireAuth>}
+              />
+
+              <Route
+                path="newsurvey/files/attaic/electrical/roof/extraDetails"
+                element={<RequireAuth><UploadExtraDetailsFile title="Schedule a new Survey" /></RequireAuth>}
+              />
+
                 <Route
-                path="newsurvey/files/address"
+                path="newsurvey/files/attaic/electrical/roof/extraDetails/address"
                 element={<RequireAuth><GenerateScheduleSurvey inputs={surveyAddressInputs} title="Schedule a new Survey" /></RequireAuth>}
               />
             </Route>

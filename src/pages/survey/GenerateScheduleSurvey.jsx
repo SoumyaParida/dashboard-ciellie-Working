@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, arrayRemove, collection } from "firebase/firestore";
 import { db, storage } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
@@ -13,8 +13,17 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
 const GenerateScheduleSurvey = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
+  const [appliancesImages, setAppliancesImages] = useState([]);
+  const [attaicImages, setAttaicImages] = useState([]);
+  const [electricalImages, setElectricalImages] = useState([]);
+  const [roofImages, setRoofImages] = useState([]);
+  const [extraDetailsImages, setExtraDetailsImages] = useState([]);
+
+  const [files, setFiles] = useState([]);
+  const [status, setStatus] = useState({});
+
   const [data, setData] = useState({});
+  const [type, setType] = useState({});
   //const [per, setPer] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate()
@@ -27,55 +36,41 @@ const GenerateScheduleSurvey = ({ inputs, title }) => {
     //console.log("...data", ...data);
   }
 
-  useEffect(() => {
-    const uploadFile = () => {
-      
-      const name = "profile_" + file.name;
-      //const listRef = ref(storage, currentUser.uid + "/" + doc.data().id + "/" + folder);
-      const storageRef = ref(storage, currentUser.uid + "/" + surveyDataUpdated.id + "/" + "ExtraDetails" + "/" + name);
-      //const storageRef = ref(storage, "ExtraDetails" + "/" + currentUser.uid + "/" + surveyDataUpdated.id + "/" + name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      // Register three observers:
-      // 1. 'state_changed' observer, called any time the state changes
-      // 2. Error observer, called on failure
-      // 3. Completion observer, called on successful completion
-      uploadTask.on('state_changed', 
+  const handleUpload = (images, type) => {
+    const promises = [];
+    images.map((image) => {
+      const storageRef = ref(storage, currentUser.uid + "/" + surveyDataUpdated.id + "/" + type + "/" + image.name);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+      //const uploadTask = storage.ref(`${currentUser.uid}/${surveyDataUpdated.id}/${type}/${image.name}`).put(image);
+      promises.push(uploadTask);
+      uploadTask.on(
+        "state_changed",
         (snapshot) => {
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          //setPer(progress);
-          switch (snapshot.state) {
-            case 'paused':
-              console.log('Upload is paused');
-              break;
-            case 'running':
-              console.log('Upload is running');
-              break;
-            default:
-              console.log('Upload is running');
-              break;
-          }
-        }, 
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          //setProgress(progress);
+        },
         (error) => {
-          // Handle unsuccessful uploads
           console.log(error);
-        }, 
+        },
         () => {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log('File available at', downloadURL);
+            setStatus("complete");
             //setData((prev)=>({...prev, image:downloadURL}));
           });
         }
       );
-    };
-    file && uploadFile();
-  }, [file]);
+    });
+
+    Promise.all(promises)
+      .then(() => console.log(`All ${type} uploaded`))
+      .catch((err) => console.log(err));
+  };
 
   const redirectToProjects = async (e) => {    
     {Object.keys(surveyDataUpdated).map((key) => {
@@ -86,7 +81,12 @@ const GenerateScheduleSurvey = ({ inputs, title }) => {
       data["id"] = surveyDataUpdated["id"];
     })};
 
-    setFile(surveyDataUpdated.image);    
+    handleUpload(surveyDataUpdated.appliancesImages, "Appliances")
+    handleUpload(surveyDataUpdated.attaicImages, "Attic")
+    handleUpload(surveyDataUpdated.electricalImages, "Electrical")
+    handleUpload(surveyDataUpdated.roofImages, "Roof")
+    handleUpload(surveyDataUpdated.extraDetailsImages, "ExtraDetails")
+    
     try{
       const querySnapshot = await addDoc(collection(db, "surveys", currentUser.uid, "survey"),{
         ...data

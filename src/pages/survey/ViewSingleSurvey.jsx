@@ -9,11 +9,14 @@ import {  db, storage } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { useLocation } from 'react-router-dom';
-import { ref,  getDownloadURL, listAll } from "firebase/storage";
+import { ref,  getDownloadURL, listAll, getStorage, getMetadata, getBlob } from "firebase/storage";
 
 import FolderStructure from '../../components/folderStructure/FolderStructure';
 
 import { v4 as uuidv4 } from 'uuid';
+
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 
 
@@ -27,6 +30,36 @@ const ViewSingleSurvey = () => {
   const { currentUser } = useContext(AuthContext);
 
   const { state } = useLocation();
+
+  const addFilesFromDirectoryToZip = async (directoryPath = "", zip) => {
+    const storage = getStorage();
+   
+    const directoryContentsRef = ref(
+      storage,
+      directoryPath
+    );
+    const directoryContents = await listAll(directoryContentsRef);
+  
+    for (const file of directoryContents.items) {
+      const fileRef = ref(storage, file.fullPath);
+      const fileBlob = await getBlob(fileRef)
+      zip.file(file.fullPath, fileBlob);
+    }
+  
+    for (const folder of directoryContents.prefixes) {
+      await addFilesFromDirectoryToZip(folder.fullPath, zip);
+    };
+  };
+  
+  const downloadFolderAsZip = async () => {
+    const zip = new JSZip();
+    const directoryPath = currentUser.uid + "/" + state.id;
+    await addFilesFromDirectoryToZip(directoryPath, zip);
+  
+    const blob = await zip.generateAsync({ type: "blob" });
+    const name = directoryPath.split('/').pop();
+    saveAs(blob, name);
+  };
 
   //console.log("state: ", state);
 
@@ -96,6 +129,8 @@ const ViewSingleSurvey = () => {
     fetchData()
   },[])
 
+  
+
   //console.log("appliances", appliances)
   return (
     <div className="surveySingle">
@@ -112,14 +147,21 @@ const ViewSingleSurvey = () => {
                     <h5 className="description">This information will let us know more about the site we are surveying.</h5>
 
                     
-                   
+                    <div className="pull-right">
+                      <input type="button" className="btn btn-finish btn-fill btn-primary btn-wd" name="Download" value="Download Zip" onClick={downloadFolderAsZip} id="create-button" />
+                      </div>
                     
 
                     <div className="card-body">
+                    
+                      
+                    
                   <div className="tab-content">
                     <div className="tab-pane show active" id="info">
-                      
+
+                    
                       <div className="row justify-content-center mt-5">
+                      
                       
                         <FolderStructure inputs={[appliances, attaic, electrical, roof, extraDetails]}></FolderStructure>
                      
@@ -128,8 +170,9 @@ const ViewSingleSurvey = () => {
                         </div>
                       
                       </div>
+                      
                     </div>
-
+                    
                     
 
                     
@@ -139,7 +182,7 @@ const ViewSingleSurvey = () => {
              
               </div>
                   
-                  
+              
                   </div>
                 </div>
               </div>

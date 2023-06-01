@@ -3,9 +3,22 @@ import "./folderStructure.scss";
 import { useLocation } from 'react-router-dom';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import { Link } from 'react-router-dom';
+import axios from 'axios'
+import fileDownload from 'js-file-download'
 
 const Appliances = () => {
   const { state: { infoId, title } = {} } = useLocation();
+  const downloadUrl = (input) =>{
+    console.log("input = " + input.name);
+    axios.get(input.fullPath, {
+      responseType: 'blob',
+    })
+    .then((res) => {
+      fileDownload(res.data, Date.now().toString()+".png")
+    })
+
+  }
   return (
     <div className="surveySingle">
       <Sidebar />
@@ -34,7 +47,12 @@ const Appliances = () => {
                                       height="150" 
                                       width="150"
                                   />
+                                  <p>
+                                  <input type="button" className="btn btn-finish btn-fill btn-primary btn-wd" name="Download" value="Download" onClick={() => downloadUrl(input)} id="create-button" />
+                                   
+                                   </p>
                                 </div>
+                                
                             ))}
                           </div>
                         </div>

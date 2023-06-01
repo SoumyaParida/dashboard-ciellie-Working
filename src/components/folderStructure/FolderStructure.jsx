@@ -28,6 +28,9 @@ const FolderStructure = ({inputs}) => {
     }
     
   }
+
+
+
   
   return (
     <div className="fileinput-new thumbnail row">

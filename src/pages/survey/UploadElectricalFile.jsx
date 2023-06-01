@@ -5,25 +5,43 @@ import Navbar from "../../components/navbar/Navbar";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import imagePlaceholder from "../../assets/img/image_placeholder.jpg";
+import attaicimagePlaceholder from "../../assets/img/image_placeholder.jpg";
+import electricalimagePlaceholder from "../../assets/img/image_placeholder.jpg";
+import roofimagePlaceholder from "../../assets/img/image_placeholder.jpg";
+import extraDetailsimagePlaceholder from "../../assets/img/image_placeholder.jpg";
+
 import { useLocation } from 'react-router-dom';
 
 
-const UploadFile = () => {
-  const [file, setFile] = useState("");
-  const [data, setData] = useState({});
+const UploadElectricalFile = () => {
+  const [electricalfiles, setElectricalFiles] = useState([]);
+  
+  const [data, setData] = useState([]);
   const navigate = useNavigate()
   const { state: { surveyData } = {} } = useLocation();
 
   console.log(data);
+  console.log("electricalfiles = " + electricalfiles);
+
+  const handleElectricalChange = (e) => {
+    for (let i=0; i< e.target.files.length;i++){
+      const newImage = e.target.files[i];
+      newImage["id"] = "electrical"+ Math.random().toString();
+      //newImage["category_name"] = "electrical";
+      setElectricalFiles((prevState) => [...prevState, newImage]);
+    }
+  }
 
   const nextpart = (e) => {
-    console.log("file.name", file);
-    setData({"img": file.name})
-    console.log("surveyData .data", surveyData);
-    surveyData["image"] = file;
-    console.log("...data", data);
-    navigate("./address", { state: { surveyDataUpdated: surveyData } });
+    setData({"img": electricalfiles})
+    
+    surveyData["electricalImages"] = electricalfiles;
+    //surveyData["category_name"] = "electrical";
+    
+    console.log("new surveyData .data", surveyData);
+    navigate("./roof", { state: { surveyData: surveyData } });
   }
   const prePart = (e) => {
     navigate(-1);
@@ -73,43 +91,55 @@ const UploadFile = () => {
                 </div>
 
 
-                  <div className="card-body">
+                  
+                                    <div className="card-body">
                   <div className="tab-pane" id="account">
-                      <h5 className="info-text">Upload any additional files that are essential to the project</h5>
+                  <h5 className="info-text">Upload Images of electricals that are essential to the project</h5>
                       <div className="row justify-content-center">
                         <div className="col-lg-10 text-center">
-                        <form id="image-upload-form">
-                            <div className="fileinput fileinput-new text-center" data-provides="fileinput">
-                              <div className="fileinput-new thumbnail">
-                              <img
-                                        src={
-                                            file
-                                            ? URL.createObjectURL(file)
-                                            : imagePlaceholder
-                                        }
-                                        alt=""
-                                        />
+                                    <form id ="electrical">
+                                     
+                                    <div className="row justify-content-center" data-provides="fileinput">
+                        
+                              {electricalfiles.map((electricalfile, i) => (
+                               <div className="row fileinput fileinput-new thumbnail" style={{ padding:20, marginTop: "0px" }}> 
+                                <img
+                                key={i}
+                                style={ {width: "200px"} }
+                                src={
+                                  electricalfile
+                                    ? URL.createObjectURL(electricalfile)
+                                    : electricalimagePlaceholder
+                                }
+                                alt=""
+                                
+                                />
+                              
+                                
                               </div>
 
-                              <div className="fileinput-preview fileinput-exists thumbnail"></div>
+                              ))}
+                              </div>
+                              
+                             
+                              
                                 <div>
                                     <span className="btn btn-primary btn-simple btn-file">
-                                        <label htmlFor="file">Select image</label>
-                                        <label className="fileinput-exists">Change</label>
+                                        <label htmlFor="file">Electrical</label>
+                                        
                                         <input
                                             type="file"
                                             id="file"
-                                            onChange={(e) => setFile(e.target.files[0])}
+                                            multiple
+                                            onChange={handleElectricalChange}
                                             style={{ display: "none" }}
                                             />
                                         </span>
                                        
                                     </div>
-                            </div>
-                        </form>
-                        </div>
-                      </div>
-                    </div>
+                                    
+                                    </form></div></div></div>
+                                    
               <div className="card-footer">
                   <div className="pull-right">
                     <input type='button' className='btn btn-next btn-fill btn-green btn-wd' name='next' value='Next' onClick={nextpart} />  
@@ -139,4 +169,4 @@ const UploadFile = () => {
   );
 };
 
-export default UploadFile;
+export default UploadElectricalFile;

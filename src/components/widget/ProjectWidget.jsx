@@ -39,29 +39,29 @@ const ProjectWidget = () => {
       
       querySnapshot.forEach((doc) => {
         //console.log(doc.data());
-        if ((doc.data().date > moment().month("January").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("January").endOf('month').format('YYYY-MM-DD'))){
+        if ((doc.data().date >= moment().month("January").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("January").endOf('month').format('YYYY-MM-DD'))){
           counterJan = counterJan + 1;
-        } else if ((doc.data().date > moment().month("February").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("February").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("February").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("February").endOf('month').format('YYYY-MM-DD'))){
           counterFeb = counterFeb + 1 ;
-        } else if ((doc.data().date > moment().month("March").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("March").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("March").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("March").endOf('month').format('YYYY-MM-DD'))){
           counterMar = counterMar + 1 ;
-        } else if ((doc.data().date > moment().month("April").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("April").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("April").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("April").endOf('month').format('YYYY-MM-DD'))){
           counterApr = counterApr + 1 ;
-        } else if ((doc.data().date > moment().month("May").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("May").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("May").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("May").endOf('month').format('YYYY-MM-DD'))){
           counterMay = counterMay + 1 ;
-        } else if ((doc.data().date > moment().month("June").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("June").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("June").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("June").endOf('month').format('YYYY-MM-DD'))){
           counterJun = counterJun + 1 ;
-        } else if ((doc.data().date > moment().month("July").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("July").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("July").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("July").endOf('month').format('YYYY-MM-DD'))){
           counterJul = counterJul + 1 ;
-        } else if ((doc.data().date > moment().month("August").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("August").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("August").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("August").endOf('month').format('YYYY-MM-DD'))){
           counterAug = counterAug + 1 ;
-        } else if ((doc.data().date > moment().month("September").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("September").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("September").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("September").endOf('month').format('YYYY-MM-DD'))){
           counterSep = counterSep + 1 ;
-        } else if ((doc.data().date > moment().month("October").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("October").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("October").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("October").endOf('month').format('YYYY-MM-DD'))){
           counterOct = counterOct + 1 ;
-        } else if ((doc.data().date > moment().month("November").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("November").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("November").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("November").endOf('month').format('YYYY-MM-DD'))){
           counterNov = counterNov + 1 ;
-        } else if ((doc.data().date > moment().month("December").startOf('month').format('YYYY-MM-DD')) && (doc.data().date < moment().month("December").endOf('month').format('YYYY-MM-DD'))){
+        } else if ((doc.data().date >= moment().month("December").startOf('month').format('YYYY-MM-DD')) && (doc.data().date <= moment().month("December").endOf('month').format('YYYY-MM-DD'))){
           counterDec = counterDec + 1 ;
         }
       });
